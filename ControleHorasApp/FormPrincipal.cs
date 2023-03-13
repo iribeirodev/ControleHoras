@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using ControleHorasApp.DAL;
 using ControleHorasApp.DTO;
+using ControleHorasApp.Services;
 
 namespace ControleHorasApp
 {
@@ -73,6 +74,9 @@ namespace ControleHorasApp
 
         private void ExcluirTarefa()
         {
+            var rowSelected = dgvTarefas.SelectedRows[0];
+            LogService.Write("Excluir Tarefa", "Excluindo tarefa " + rowSelected.Cells[1].Value.ToString());
+
             DalHelper.Delete(ObterId());
             ExibirDados(limparSelecao: true);
 
@@ -94,6 +98,8 @@ namespace ControleHorasApp
                 {
                     var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(row.Cells[2].Value.ToString()));
                     DalHelper.AtualizarStatus(currentId, "stopped");
+
+                    LogService.Write("Interrompendo Tarefa", row.Cells[1].Value.ToString());
                 }
             }
 
@@ -142,6 +148,8 @@ namespace ControleHorasApp
 
             DalHelper.SetarContagem(ObterId(), "started", tempoDecorrido);
 
+            LogService.Write("Iniciar Tarefa", rowSelected.Cells[1].Value.ToString());
+
             InterromperOutrasTarefas(ObterId());
 
             ExibirDados(limparSelecao: false);
@@ -159,6 +167,8 @@ namespace ControleHorasApp
 
             DalHelper.SetarContagem(ObterId(), "stopped", tempoDecorrido);
 
+            LogService.Write("Parar Tarefa", rowSelected.Cells[1].Value.ToString());
+
             ExibirDados(limparSelecao: false);
 
             MostrarItens();
@@ -174,6 +184,13 @@ namespace ControleHorasApp
                             MessageBoxIcon.Question) == DialogResult.Yes)
                 ExcluirTarefa();
         }
+
         #endregion
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            var frmLog = new FormLog();
+            frmLog.ShowDialog();
+        }
     }
 }

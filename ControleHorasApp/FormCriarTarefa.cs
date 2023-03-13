@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using ControleHorasApp.DAL;
 using ControleHorasApp.DTO;
+using ControleHorasApp.Services;
 
 namespace ControleHorasApp
 {
@@ -27,6 +28,8 @@ namespace ControleHorasApp
                 tarefa.Status = "stopped";
 
                 DalHelper.Add(tarefa);
+
+                LogService.Write("Criar Tarefa", tarefa.Nome);
 
                 Close();
             }

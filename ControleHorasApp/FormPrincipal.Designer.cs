@@ -48,6 +48,7 @@ namespace ControleHorasApp
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnIniciarContagem = new System.Windows.Forms.Button();
             this.btnPararContagem = new System.Windows.Forms.Button();
+            this.btnLog = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarefas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -222,7 +223,7 @@ namespace ControleHorasApp
             this.btnIniciarContagem.Enabled = false;
             this.btnIniciarContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIniciarContagem.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.btnIniciarContagem.Location = new System.Drawing.Point(236, 343);
+            this.btnIniciarContagem.Location = new System.Drawing.Point(203, 343);
             this.btnIniciarContagem.Margin = new System.Windows.Forms.Padding(4);
             this.btnIniciarContagem.Name = "btnIniciarContagem";
             this.btnIniciarContagem.Size = new System.Drawing.Size(120, 28);
@@ -236,7 +237,7 @@ namespace ControleHorasApp
             this.btnPararContagem.Enabled = false;
             this.btnPararContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPararContagem.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.btnPararContagem.Location = new System.Drawing.Point(364, 343);
+            this.btnPararContagem.Location = new System.Drawing.Point(331, 343);
             this.btnPararContagem.Margin = new System.Windows.Forms.Padding(4);
             this.btnPararContagem.Name = "btnPararContagem";
             this.btnPararContagem.Size = new System.Drawing.Size(120, 28);
@@ -245,11 +246,25 @@ namespace ControleHorasApp
             this.btnPararContagem.UseVisualStyleBackColor = true;
             this.btnPararContagem.Click += new System.EventHandler(this.btnPararContagem_Click);
             // 
+            // btnLog
+            // 
+            this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLog.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.btnLog.Location = new System.Drawing.Point(509, 343);
+            this.btnLog.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(120, 28);
+            this.btnLog.TabIndex = 14;
+            this.btnLog.Text = "Log";
+            this.btnLog.UseVisualStyleBackColor = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 394);
+            this.Controls.Add(this.btnLog);
             this.Controls.Add(this.btnPararContagem);
             this.Controls.Add(this.btnIniciarContagem);
             this.Controls.Add(this.dgvTarefas);
@@ -262,6 +277,7 @@ namespace ControleHorasApp
             this.Controls.Add(this.btnExcluirTarefa);
             this.Controls.Add(this.btnNovaTarefa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FormPrincipal";
@@ -294,6 +310,7 @@ namespace ControleHorasApp
         private System.Windows.Forms.DataGridViewTextBoxColumn DataInicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn TempoDecorrido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.Button btnLog;
     }
 }
 

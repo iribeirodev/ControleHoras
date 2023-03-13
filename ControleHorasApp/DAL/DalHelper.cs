@@ -1,4 +1,5 @@
 ﻿using ControleHorasApp.DTO;
+using ControleHorasApp.Services;
 using System;
 using System.Configuration;
 using System.Data;
@@ -10,6 +11,13 @@ namespace ControleHorasApp.DAL
     public class DalHelper
     {
         private static SQLiteConnection sqliteConnection;
+        private static string createTableCmdText = "CREATE TABLE IF NOT EXISTS Tarefas" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Nome Varchar(50), " +
+            "DataInicio VarChar(20), " +
+            "TempoDecorrido VarChar(20), " +
+            "Status VarChar(20))";
+
         public DalHelper(){ }
 
         private static string GetDataPath()
@@ -48,7 +56,7 @@ namespace ControleHorasApp.DAL
             {
                 using (var cmd = DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS Tarefas(id INTEGER PRIMARY KEY AUTOINCREMENT, Nome Varchar(50), DataInicio VarChar(20), TempoDecorrido VarChar(20), Status VarChar(20))";
+                    cmd.CommandText = createTableCmdText;
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -67,26 +75,6 @@ namespace ControleHorasApp.DAL
                 using (var cmd = DbConnection().CreateCommand())
                 {
                     cmd.CommandText = "SELECT t.id, t.Nome, STRFTIME('%d/%m/%Y %H:%M', t.DataInicio) AS DataInicio, t.TempoDecorrido, t.Status FROM Tarefas t";
-                    da = new SQLiteDataAdapter(cmd.CommandText, DbConnection());
-                    da.Fill(dt);
-                    return dt;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static DataTable GetTarefa(int id)
-        {
-            SQLiteDataAdapter da = null;
-            DataTable dt = new DataTable();
-            try
-            {
-                using (var cmd = DbConnection().CreateCommand())
-                {
-                    cmd.CommandText = "SELECT * FROM Tarefas Where Id=" + id;
                     da = new SQLiteDataAdapter(cmd.CommandText, DbConnection());
                     da.Fill(dt);
                     return dt;
