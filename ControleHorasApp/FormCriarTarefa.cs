@@ -13,7 +13,10 @@ namespace ControleHorasApp
         {
 
             if (string.IsNullOrEmpty(txtNovaTarefa.Text))
+            {
+                MessageBox.Show("Nenhum nome para a tarefa foi definido.", "Atenção");
                 return;
+            }
 
             try
             {

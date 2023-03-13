@@ -60,6 +60,8 @@ namespace ControleHorasApp
             // 
             // btnNovaTarefa
             // 
+            this.btnNovaTarefa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNovaTarefa.ForeColor = System.Drawing.Color.DodgerBlue;
             this.btnNovaTarefa.Location = new System.Drawing.Point(18, 343);
             this.btnNovaTarefa.Margin = new System.Windows.Forms.Padding(4);
             this.btnNovaTarefa.Name = "btnNovaTarefa";
@@ -71,19 +73,21 @@ namespace ControleHorasApp
             // 
             // btnExcluirTarefa
             // 
+            this.btnExcluirTarefa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirTarefa.ForeColor = System.Drawing.Color.Maroon;
             this.btnExcluirTarefa.Location = new System.Drawing.Point(770, 343);
             this.btnExcluirTarefa.Margin = new System.Windows.Forms.Padding(4);
             this.btnExcluirTarefa.Name = "btnExcluirTarefa";
             this.btnExcluirTarefa.Size = new System.Drawing.Size(120, 28);
             this.btnExcluirTarefa.TabIndex = 2;
             this.btnExcluirTarefa.Text = "Excluir Tarefa";
-            this.btnExcluirTarefa.UseVisualStyleBackColor = true;
+            this.btnExcluirTarefa.UseVisualStyleBackColor = false;
             this.btnExcluirTarefa.Click += new System.EventHandler(this.btnExcluirTarefa_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 31);
+            this.label1.Location = new System.Drawing.Point(16, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 17);
             this.label1.TabIndex = 5;
@@ -92,7 +96,7 @@ namespace ControleHorasApp
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 72);
+            this.label2.Location = new System.Drawing.Point(16, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 17);
             this.label2.TabIndex = 6;
@@ -101,7 +105,7 @@ namespace ControleHorasApp
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 121);
+            this.label3.Location = new System.Drawing.Point(16, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(122, 17);
             this.label3.TabIndex = 7;
@@ -109,6 +113,8 @@ namespace ControleHorasApp
             // 
             // txtNomeTarefa
             // 
+            this.txtNomeTarefa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNomeTarefa.ForeColor = System.Drawing.Color.DodgerBlue;
             this.txtNomeTarefa.Location = new System.Drawing.Point(145, 31);
             this.txtNomeTarefa.Name = "txtNomeTarefa";
             this.txtNomeTarefa.ReadOnly = true;
@@ -117,7 +123,8 @@ namespace ControleHorasApp
             // 
             // txtDataInicio
             // 
-            this.txtDataInicio.Location = new System.Drawing.Point(144, 72);
+            this.txtDataInicio.ForeColor = System.Drawing.Color.Black;
+            this.txtDataInicio.Location = new System.Drawing.Point(144, 74);
             this.txtDataInicio.Name = "txtDataInicio";
             this.txtDataInicio.ReadOnly = true;
             this.txtDataInicio.Size = new System.Drawing.Size(167, 22);
@@ -126,7 +133,8 @@ namespace ControleHorasApp
             // 
             // txtTempoDecorrido
             // 
-            this.txtTempoDecorrido.Location = new System.Drawing.Point(144, 118);
+            this.txtTempoDecorrido.ForeColor = System.Drawing.Color.Black;
+            this.txtTempoDecorrido.Location = new System.Drawing.Point(144, 115);
             this.txtTempoDecorrido.Name = "txtTempoDecorrido";
             this.txtTempoDecorrido.ReadOnly = true;
             this.txtTempoDecorrido.Size = new System.Drawing.Size(95, 22);
@@ -139,6 +147,7 @@ namespace ControleHorasApp
             this.dgvTarefas.AllowUserToDeleteRows = false;
             this.dgvTarefas.AllowUserToResizeColumns = false;
             this.dgvTarefas.AllowUserToResizeRows = false;
+            this.dgvTarefas.BackgroundColor = System.Drawing.Color.Beige;
             this.dgvTarefas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTarefas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -211,6 +220,8 @@ namespace ControleHorasApp
             // btnIniciarContagem
             // 
             this.btnIniciarContagem.Enabled = false;
+            this.btnIniciarContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIniciarContagem.ForeColor = System.Drawing.Color.DodgerBlue;
             this.btnIniciarContagem.Location = new System.Drawing.Point(236, 343);
             this.btnIniciarContagem.Margin = new System.Windows.Forms.Padding(4);
             this.btnIniciarContagem.Name = "btnIniciarContagem";
@@ -223,6 +234,8 @@ namespace ControleHorasApp
             // btnPararContagem
             // 
             this.btnPararContagem.Enabled = false;
+            this.btnPararContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPararContagem.ForeColor = System.Drawing.Color.DodgerBlue;
             this.btnPararContagem.Location = new System.Drawing.Point(364, 343);
             this.btnPararContagem.Margin = new System.Windows.Forms.Padding(4);
             this.btnPararContagem.Name = "btnPararContagem";
