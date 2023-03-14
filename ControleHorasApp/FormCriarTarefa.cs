@@ -8,27 +8,36 @@ namespace ControleHorasApp
 {
     public partial class FormCriarTarefa : Form
     {
+        public bool Edicao { get; set; } = false;
+        public int Id { get; set; }
+        public string NomeAtual { get; set; }
+        public bool Atualizada { get; set; } = false;
+
         public FormCriarTarefa() => InitializeComponent();
 
-        private void btnAplicar_Click(object sender, EventArgs e)
+        #region Métodos Privados
+        private bool Validar()
         {
-
             if (string.IsNullOrEmpty(txtNovaTarefa.Text))
             {
                 MessageBox.Show("Nenhum nome para a tarefa foi definido.", "Atenção");
-                return;
+                return false;
             }
 
+            return true;
+        }
+
+        private void CriarTarefa()
+        {
             try
             {
-                Tarefa tarefa = new Tarefa();
+                var tarefa = new Tarefa();
                 tarefa.Nome = txtNovaTarefa.Text;
                 tarefa.DataInicio = DateTime.Now;
-                tarefa.TempoDecorrido = "00:00";
+                tarefa.TempoDecorrido = "00:00:00";
                 tarefa.Status = "stopped";
 
                 DalHelper.Add(tarefa);
-
                 LogService.Write("Criar Tarefa", tarefa.Nome);
 
                 Close();
@@ -36,6 +45,45 @@ namespace ControleHorasApp
             catch (Exception ex)
             {
                 MessageBox.Show("Erro : " + ex.Message);
+            }
+        }
+
+        private void AtualizarTarefa()
+        {
+            try
+            {
+                DalHelper.AtualizarNome(this.Id, txtNovaTarefa.Text);
+                LogService.Write("Atualizar Tarefa", "Atualizando Tarefa " + NomeAtual + " com novo nome " + txtNovaTarefa.Text);
+                Atualizada = true;
+
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro : " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Eventos
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+            if (!Validar()) return;
+
+            if (Edicao)
+                AtualizarTarefa();
+            else
+                CriarTarefa();
+            
+        }
+        #endregion
+
+        private void FormCriarTarefa_Load(object sender, EventArgs e)
+        {
+            if (Edicao)
+            {
+                Text = "Editar Tarefa";
+                txtNovaTarefa.Text = NomeAtual;
             }
         }
     }

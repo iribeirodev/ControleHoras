@@ -7,34 +7,19 @@ using ControleHorasApp.Services;
 
 namespace ControleHorasApp
 {
-
-
-    [FlagsAttribute]
-    public enum EXECUTION_STATE : uint
-    {
-        ES_AWAYMODE_REQUIRED = 0x00000040,
-        ES_CONTINUOUS = 0x80000000,
-        ES_DISPLAY_REQUIRED = 0x00000002,
-        ES_SYSTEM_REQUIRED = 0x00000001
-        // Legacy flag, should not be used.
-        // ES_USER_PRESENT = 0x00000004
-    }
-
     public partial class FormPrincipal : Form
     {
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
-
-
-        public FormPrincipal()
-        {
-            SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_AWAYMODE_REQUIRED);
-            InitializeComponent();
-        }
+        #region Construtor
+        public FormPrincipal() => InitializeComponent();
+        #endregion
 
         #region Métodos Privados
 
-        private void ExibirDados(bool limparSelecao = true)
+        /// <summary>
+        /// Carrega os dados persistidos de tarefas
+        /// </summary>
+        /// <param name="limparSelecao">Após carregar tirar seleção da linha</param>
+        private void CarregarDados(bool limparSelecao = true)
         {
             try
             {
@@ -50,6 +35,10 @@ namespace ControleHorasApp
             }
         }
 
+        /// <summary>
+        /// Carrega os textboxes a partir do dado selecionado da grid.
+        /// </summary>
+        /// <param name="index"></param>
         private void MostrarItens(int index = -1)
         {
             DataGridViewRow selectedRow;
@@ -64,6 +53,15 @@ namespace ControleHorasApp
             txtTempoDecorrido.Text = selectedRow.Cells[3].Value.ToString();
 
             string status = selectedRow.Cells[4].Value.ToString();
+            HabilitarBotoesPorStatus(status);
+        }
+
+        /// <summary>
+        /// Habilita/Desabilita botões por status da tarefa
+        /// </summary>
+        /// <param name="status">status selecionado</param>
+        private void HabilitarBotoesPorStatus(string status)
+        {
             if (status == "stopped")
             {
                 btnIniciarContagem.Enabled = true;
@@ -76,26 +74,31 @@ namespace ControleHorasApp
             }
         }
 
-        private string ObterDiferencaHoras(DateTime inicio)
-        {
-            var agora = DateTime.Now;
-            var tempoDecorrido = (agora - inicio).ToString(@"hh\:mm\:ss");
-            return tempoDecorrido;
-        }
+        /// <summary>
+        /// Retorna a diferença de tempo no formato hh:mm:ss entre a data atual
+        /// e a data de criação da tarefa
+        /// </summary>
+        private string ObterDiferencaHoras(DateTime dataTarefa) => (DateTime.Now - dataTarefa).ToString(@"hh\:mm\:ss");
 
-        private int ObterId()
-        {
-            var rowSelected = dgvTarefas.SelectedRows[0];
-            return int.Parse(rowSelected.Cells[0].Value.ToString());
-        }
+        /// <summary>
+        /// Obtém qualquer valor da linha selecionada por índice de coluna
+        /// </summary>
+        private string ObterValorSelecionado(int index) => dgvTarefas.SelectedRows[0].Cells[index].Value.ToString();
 
+        /// <summary>
+        /// Obtém o id de tarefa da linha selecionada
+        /// </summary>
+        private int ObterId() => int.Parse(dgvTarefas.SelectedRows[0].Cells[0].Value.ToString());
+
+        /// <summary>
+        /// Exclui a tarefa selecionada
+        /// </summary>
         private void ExcluirTarefa()
         {
-            var rowSelected = dgvTarefas.SelectedRows[0];
-            LogService.Write("Excluir Tarefa", "Excluindo tarefa " + rowSelected.Cells[1].Value.ToString());
+            LogService.Write("Excluir Tarefa", $"Excluindo tarefa {ObterValorSelecionado(1)} ");
 
             DalHelper.Delete(ObterId());
-            ExibirDados(limparSelecao: true);
+            CarregarDados(limparSelecao: true);
 
             txtNomeTarefa.Text = "";
             txtDataInicio.Text = "";
@@ -110,19 +113,15 @@ namespace ControleHorasApp
         {
             foreach (DataGridViewRow row in dgvTarefas.Rows)
             {
-                int currentId = int.Parse(row.Cells[0].Value.ToString());
+                var currentId = int.Parse(row.Cells[0].Value.ToString());
                 if (currentId != idTarefa)
                 {
-                    var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(row.Cells[2].Value.ToString()));
                     DalHelper.AtualizarStatus(currentId, "stopped");
-
                     LogService.Write("Interrompendo Tarefa", row.Cells[1].Value.ToString());
                 }
             }
-
-            ExibirDados();
+            CarregarDados();
         }
-
         #endregion
 
         #region Eventos
@@ -147,51 +146,42 @@ namespace ControleHorasApp
         {
             var formCriarTarefa = new FormCriarTarefa();
             formCriarTarefa.ShowDialog();
-            ExibirDados();
+            CarregarDados();
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             dgvTarefas.AutoGenerateColumns = false;
-            ExibirDados();
+            CarregarDados();
         }
 
         private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e) => MostrarItens(e.RowIndex);
 
         private void btnIniciarContagem_Click(object sender, EventArgs e)
         {
-            var rowSelected = dgvTarefas.SelectedRows[0];
-            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(rowSelected.Cells[2].Value.ToString()));
+            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
 
             DalHelper.SetarContagem(ObterId(), "started", tempoDecorrido);
 
-            LogService.Write("Iniciar Tarefa", rowSelected.Cells[1].Value.ToString());
+            LogService.Write("Iniciar Tarefa", ObterValorSelecionado(1));
 
             InterromperOutrasTarefas(ObterId());
-
-            ExibirDados(limparSelecao: false);
-
+            CarregarDados(limparSelecao: false);
             MostrarItens();
-
-            btnIniciarContagem.Enabled = false;
-            btnPararContagem.Enabled = true;
+            HabilitarBotoesPorStatus("started");
         }
 
         private void btnPararContagem_Click(object sender, EventArgs e)
         {
-            var rowSelected = dgvTarefas.SelectedRows[0];
-            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(rowSelected.Cells[2].Value.ToString()));
+            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
 
             DalHelper.SetarContagem(ObterId(), "stopped", tempoDecorrido);
 
-            LogService.Write("Parar Tarefa", rowSelected.Cells[1].Value.ToString());
+            LogService.Write("Parar Tarefa", ObterValorSelecionado(1));
 
-            ExibirDados(limparSelecao: false);
-
+            CarregarDados(limparSelecao: false);
             MostrarItens();
-
-            btnIniciarContagem.Enabled = true;
-            btnPararContagem.Enabled = false;
+            HabilitarBotoesPorStatus("stopped");
         }
 
         private void btnExcluirTarefa_Click(object sender, EventArgs e)
@@ -207,9 +197,24 @@ namespace ControleHorasApp
             var frmLog = new FormLog();
             frmLog.ShowDialog();
         }
-
         #endregion
 
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            var formCriarTarefa = new FormCriarTarefa();
+            formCriarTarefa.Edicao = true;
+            formCriarTarefa.Id = ObterId();
+            formCriarTarefa.NomeAtual = ObterValorSelecionado(1);
 
+            formCriarTarefa.ShowDialog();
+            CarregarDados();
+
+            if (formCriarTarefa.Atualizada)
+            {
+                txtNomeTarefa.Text = "";
+                txtDataInicio.Text = "";
+                txtTempoDecorrido.Text = "";
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ControleHorasApp.DAL
 {
@@ -119,6 +120,50 @@ namespace ControleHorasApp.DAL
 
                     cmd.ExecuteNonQuery();
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void AtualizarNome(int id, string novoNome)
+        {
+            try
+            {
+                using (var cmd = new SQLiteCommand(DbConnection()))
+                {
+                    cmd.CommandText = "UPDATE Tarefas SET Nome=@nome WHERE Id=@id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@nome", novoNome);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static string ObterTarefaPorId(int id)
+        {
+            string nome = "";
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Nome FROM Tarefas WHERE id=" + id;
+                    using (var reader = cmd.ExecuteReader())
+                    { 
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            nome = reader.GetString(0);
+                        }
+                    }
+                }
+                return nome;
             }
             catch (Exception ex)
             {
