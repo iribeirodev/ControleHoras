@@ -133,6 +133,11 @@ namespace ControleHorasApp
         /// </summary>
         private void ExcluirTarefa()
         {
+            if (dgvTarefas.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show("Selecione uma tarefa antes.");
+                return;
+            }
             if (MessageBox.Show("Vai excluir a tarefa selecionada. Continua?", "Atenção",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
