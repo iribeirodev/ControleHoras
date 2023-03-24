@@ -125,52 +125,36 @@ namespace ControleHorasApp
         #endregion
 
         #region Eventos
-        private void FormPrincipal_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(100);
-                ShowInTaskbar = false;
-            }
-        }
-
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            WindowState = FormWindowState.Normal;
-            ShowInTaskbar = true;
-            notifyIcon1.Visible = false;
-        }
-
         private void btnNovaTarefa_Click(object sender, EventArgs e)
         {
             var formCriarTarefa = new FormCriarTarefa();
             formCriarTarefa.ShowDialog();
             CarregarDados();
         }
-
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             dgvTarefas.AutoGenerateColumns = false;
             CarregarDados();
         }
-
         private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e) => MostrarItens(e.RowIndex);
-
         private void btnIniciarContagem_Click(object sender, EventArgs e)
         {
             var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
+            var ultimaLinhaSelecionada = dgvTarefas.CurrentCell.RowIndex;
 
             DalHelper.SetarContagem(ObterId(), "started", tempoDecorrido);
 
             LogService.Write("Iniciar Tarefa", ObterValorSelecionado(1));
 
             InterromperOutrasTarefas(ObterId());
-            CarregarDados(limparSelecao: false);
-            MostrarItens();
+
+            CarregarDados(limparSelecao: true);
+            txtNomeTarefa.Text = "";
+            txtDataInicio.Text = "";
+            txtTempoDecorrido.Text = "";
+
             HabilitarBotoesPorStatus("started");
         }
-
         private void btnPararContagem_Click(object sender, EventArgs e)
         {
             var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
@@ -183,7 +167,6 @@ namespace ControleHorasApp
             MostrarItens();
             HabilitarBotoesPorStatus("stopped");
         }
-
         private void btnExcluirTarefa_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Vai excluir a tarefa selecionada. Continua?", "Atenção",
@@ -191,16 +174,19 @@ namespace ControleHorasApp
                             MessageBoxIcon.Question) == DialogResult.Yes)
                 ExcluirTarefa();
         }
-
         private void btnLog_Click(object sender, EventArgs e)
         {
             var frmLog = new FormLog();
             frmLog.ShowDialog();
         }
-        #endregion
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            if (dgvTarefas.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro.");
+                return;
+            }
+
             var formCriarTarefa = new FormCriarTarefa();
             formCriarTarefa.Edicao = true;
             formCriarTarefa.Id = ObterId();
@@ -216,5 +202,8 @@ namespace ControleHorasApp
                 txtTempoDecorrido.Text = "";
             }
         }
+
+        #endregion
+
     }
 }

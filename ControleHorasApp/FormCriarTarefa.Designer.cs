@@ -41,21 +41,20 @@ namespace ControleHorasApp
             this.txtNovaTarefa.BackColor = System.Drawing.Color.White;
             this.txtNovaTarefa.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNovaTarefa.ForeColor = System.Drawing.Color.Black;
-            this.txtNovaTarefa.Location = new System.Drawing.Point(40, 38);
-            this.txtNovaTarefa.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNovaTarefa.MaxLength = 50;
+            this.txtNovaTarefa.Location = new System.Drawing.Point(30, 31);
+            this.txtNovaTarefa.MaxLength = 100;
             this.txtNovaTarefa.Name = "txtNovaTarefa";
-            this.txtNovaTarefa.Size = new System.Drawing.Size(623, 30);
+            this.txtNovaTarefa.Size = new System.Drawing.Size(468, 26);
             this.txtNovaTarefa.TabIndex = 0;
+            this.txtNovaTarefa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNovaTarefa_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(36, 13);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(27, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 23);
+            this.label1.Size = new System.Drawing.Size(107, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nome da Tarefa:";
             // 
@@ -65,10 +64,9 @@ namespace ControleHorasApp
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(41, 20);
-            this.btnAplicar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAplicar.Location = new System.Drawing.Point(31, 16);
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(136, 31);
+            this.btnAplicar.Size = new System.Drawing.Size(102, 25);
             this.btnAplicar.TabIndex = 1;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
@@ -80,23 +78,23 @@ namespace ControleHorasApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.btnAplicar);
-            this.panel1.Location = new System.Drawing.Point(-1, 91);
+            this.panel1.Location = new System.Drawing.Point(-1, 74);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(705, 75);
+            this.panel1.Size = new System.Drawing.Size(529, 61);
             this.panel1.TabIndex = 16;
             // 
             // FormCriarTarefa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(703, 163);
+            this.ClientSize = new System.Drawing.Size(527, 132);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNovaTarefa);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormCriarTarefa";

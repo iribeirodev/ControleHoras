@@ -14,7 +14,7 @@ namespace ControleHorasApp.DAL
         private static SQLiteConnection sqliteConnection;
         private static string createTableCmdText = "CREATE TABLE IF NOT EXISTS Tarefas" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "Nome Varchar(50), " +
+            "Nome Varchar(100), " +
             "DataInicio VarChar(20), " +
             "TempoDecorrido VarChar(20), " +
             "Status VarChar(20))";

@@ -63,10 +63,8 @@ namespace ControleHorasApp
                 MessageBox.Show("Erro : " + ex.Message);
             }
         }
-        #endregion
 
-        #region Eventos
-        private void btnAplicar_Click(object sender, EventArgs e)
+        private void Aplicar()
         {
             if (!Validar()) return;
 
@@ -74,9 +72,15 @@ namespace ControleHorasApp
                 AtualizarTarefa();
             else
                 CriarTarefa();
-            
         }
+
         #endregion
+
+        #region Eventos
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+            Aplicar();
+        }
 
         private void FormCriarTarefa_Load(object sender, EventArgs e)
         {
@@ -86,5 +90,15 @@ namespace ControleHorasApp
                 txtNovaTarefa.Text = NomeAtual;
             }
         }
+
+        private void txtNovaTarefa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                Aplicar();
+            }
+        }
+        #endregion
+
     }
 }
