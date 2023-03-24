@@ -1,32 +1,33 @@
-﻿using ControleHorasApp.DTO;
-using ControleHorasApp.Services;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ControleHorasApp.DTO;
 
 namespace ControleHorasApp.DAL
 {
     public class DalHelper
     {
-        private static SQLiteConnection sqliteConnection;
-        private static string createTableCmdText = "CREATE TABLE IF NOT EXISTS Tarefas" +
+        private SQLiteConnection sqliteConnection;
+        private string createTableCmdText = "CREATE TABLE IF NOT EXISTS Tarefas" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "Nome Varchar(100), " +
-            "DataInicio VarChar(20), " +
-            "TempoDecorrido VarChar(20), " +
-            "Status VarChar(20))";
+            "Nome VARCHAR(100), " +
+            "DataInicio VARCHAR(20), " +
+            "TempoDecorrido VARCHAR(20), " +
+            "Status VARCHAR(20))";
 
-        public DalHelper(){ }
+        #region Private Methods
+        /// <summary>
+        /// Obtém o caminho do arquivo sqlite
+        /// </summary>
+        private string GetDataPath() => ConfigurationManager.AppSettings["DataPath"];
 
-        private static string GetDataPath()
-        {
-            return ConfigurationManager.AppSettings["DataPath"];
-        }
-
-        private static SQLiteConnection DbConnection()
+        /// <summary>
+        /// Obtém uma instância aberta de DBConnection
+        /// </summary>
+        private SQLiteConnection DbConnection()
         {
             if (!File.Exists(GetDataPath()))
             {
@@ -39,19 +40,25 @@ namespace ControleHorasApp.DAL
             return sqliteConnection;
         }
 
-        public static void CriarBancoSQLite()
+        /// <summary>
+        /// Executa a criação de um novo arquivo sqlite
+        /// </summary>
+        private void CriarBancoSQLite()
         {
             try
             {
                 SQLiteConnection.CreateFile(GetDataPath());
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
-        public static void CriarTabelaSQlite()
+        /// <summary>
+        /// Executa a criação da tabela no arquivo sqlite
+        /// </summary>
+        private void CriarTabelaSQlite()
         {
             try
             {
@@ -66,8 +73,13 @@ namespace ControleHorasApp.DAL
                 throw ex;
             }
         }
+        #endregion
 
-        public static DataTable GetTarefas()
+        #region Public Methods
+        /// <summary>
+        /// Obtém todas as tarefas
+        /// </summary>
+        public DataTable GetTarefas()
         {
             SQLiteDataAdapter da = null;
             DataTable dt = new DataTable();
@@ -87,125 +99,78 @@ namespace ControleHorasApp.DAL
             }
         }
 
-        public static void Add(Tarefa tarefa)
+        /// <summary>
+        /// Inclui uma nova tarefa
+        /// </summary>
+        public void Add(Tarefa tarefa)
         {
-            try
+            using (var cmd = DbConnection().CreateCommand())
             {
-                using (var cmd = DbConnection().CreateCommand())
-                {
-                    cmd.CommandText = "INSERT INTO Tarefas(Nome, DataInicio, TempoDecorrido, Status) values (@nome, @datainicio, @tempodecorrido, @status)";
-                    cmd.Parameters.AddWithValue("@nome", tarefa.Nome);
-                    cmd.Parameters.AddWithValue("@datainicio", tarefa.DataInicio);
-                    cmd.Parameters.AddWithValue("@tempodecorrido", tarefa.TempoDecorrido);
-                    cmd.Parameters.AddWithValue("@status", tarefa.Status);
+                cmd.CommandText = "INSERT INTO Tarefas(Nome, DataInicio, TempoDecorrido, Status) values (@nome, @datainicio, @tempodecorrido, @status)";
+                cmd.Parameters.AddWithValue("@nome", tarefa.Nome);
+                cmd.Parameters.AddWithValue("@datainicio", tarefa.DataInicio);
+                cmd.Parameters.AddWithValue("@tempodecorrido", tarefa.TempoDecorrido);
+                cmd.Parameters.AddWithValue("@status", tarefa.Status);
 
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                cmd.ExecuteNonQuery();
             }
         }
 
-        public static void AtualizarStatus(int id, string status)
+        /// <summary>
+        /// Atualiza dados de uma tarefa
+        /// </summary>
+        public void Update(int id, string novoNome="", string status="", string tempoDecorrido="")
         {
-            try
+            using (var cmd = new SQLiteCommand(DbConnection()))
             {
-                using (var cmd = new SQLiteCommand(DbConnection()))
-                {
-                    cmd.CommandText = "UPDATE Tarefas SET Status=@status WHERE Id=@Id";
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@status", status);
+                var cmdText = new System.Text.StringBuilder();
+                cmdText.Append("UPDATE Tarefas SET ");
 
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static void AtualizarNome(int id, string novoNome)
-        {
-            try
-            {
-                using (var cmd = new SQLiteCommand(DbConnection()))
+                var fields = new List<string>();
+                
+                if (!string.IsNullOrEmpty(novoNome))
                 {
-                    cmd.CommandText = "UPDATE Tarefas SET Nome=@nome WHERE Id=@id";
-                    cmd.Parameters.AddWithValue("@id", id);
+                    fields.Add("Nome=@nome");
                     cmd.Parameters.AddWithValue("@nome", novoNome);
-
-                    cmd.ExecuteNonQuery();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
-        public static string ObterTarefaPorId(int id)
-        {
-            string nome = "";
-            try
-            {
-                using (var cmd = DbConnection().CreateCommand())
+                if (!string.IsNullOrEmpty(status))
                 {
-                    cmd.CommandText = "SELECT Nome FROM Tarefas WHERE id=" + id;
-                    using (var reader = cmd.ExecuteReader())
-                    { 
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            nome = reader.GetString(0);
-                        }
-                    }
-                }
-                return nome;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static void SetarContagem(int id, string status, string tempoDecorrido)
-        {
-            try
-            {
-                using (var cmd = new SQLiteCommand(DbConnection()))
-                {
-                    cmd.CommandText = "UPDATE Tarefas SET Status=@status, TempoDecorrido=@tempoDecorrido WHERE Id=@Id";
-                    cmd.Parameters.AddWithValue("@id", id);
+                    fields.Add("Status=@status");
                     cmd.Parameters.AddWithValue("@status", status);
-                    cmd.Parameters.AddWithValue("@tempoDecorrido", tempoDecorrido);
-
-                    cmd.ExecuteNonQuery();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
-        public static void Delete(int Id)
-        {
-            try
-            {
-                using (var cmd = new SQLiteCommand(DbConnection()))
+                if (!string.IsNullOrEmpty(tempoDecorrido))
                 {
-                    cmd.CommandText = "DELETE FROM Tarefas Where Id=@Id";
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    cmd.ExecuteNonQuery();
+                    fields.Add("TempoDecorrido = @tempoDecorrido");
+                    cmd.Parameters.AddWithValue("@tempoDecorrido", tempoDecorrido);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+
+                cmdText.Append(string.Join(",", fields));
+
+                cmdText.Append(" WHERE id=@id");
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.CommandText = cmdText.ToString();
+
+                cmd.ExecuteNonQuery();
             }
         }
+        
+        /// <summary>
+        /// Exclui uma tarefa pelo id
+        /// </summary>
+        public void Delete(int Id)
+        {
+            using (var cmd = new SQLiteCommand(DbConnection()))
+            {
+                cmd.CommandText = "DELETE FROM Tarefas Where Id=@Id";
+                cmd.Parameters.AddWithValue("@Id", Id);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
     }
 }

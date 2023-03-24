@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ControleHorasApp.Services
 {
     public class LogService
     {
+        /// <summary>
+        /// Escreve no arquivo de log
+        /// </summary>
+        /// <param name="funcao">Função ou método de origem</param>
+        /// <param name="message">Mensagem da linha de log</param>
         public static void Write(string funcao, string message)
         {
             string logPath = ConfigurationManager.AppSettings["LogPath"];
@@ -25,6 +26,10 @@ namespace ControleHorasApp.Services
             File.AppendAllText(logPath, content);
         }
 
+
+        /// <summary>
+        /// Obtém o conteúdo do arquivo de log
+        /// </summary>
         public static string ObterLog()
         {
             string logPath = ConfigurationManager.AppSettings["LogPath"];

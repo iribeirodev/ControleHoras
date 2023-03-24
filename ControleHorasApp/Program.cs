@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using ControleHorasApp.DAL;
+using ControleHorasApp.Services;
+
 
 namespace ControleHorasApp
 {
     static class Program
     {
+        public static IServiceProvider ServiceProvider { get; private set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +20,22 @@ namespace ControleHorasApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormPrincipal());
+
+            var host = CreateHostBuilder().Build();
+            ServiceProvider = host.Services;
+
+            Application.Run(ServiceProvider.GetRequiredService<FormPrincipal>());
+        }
+
+        static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) => {
+                    services.AddTransient<DalHelper>();
+                    services.AddTransient<TarefaService>();
+                    services.AddTransient<FormCriarTarefa>();
+                    services.AddTransient<FormPrincipal>();
+                });
         }
     }
 }

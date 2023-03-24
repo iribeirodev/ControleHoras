@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using ControleHorasApp.DAL;
 using ControleHorasApp.DTO;
 using ControleHorasApp.Services;
 
@@ -8,12 +7,18 @@ namespace ControleHorasApp
 {
     public partial class FormCriarTarefa : Form
     {
+        private readonly TarefaService _tarefaService;
+
         public bool Edicao { get; set; } = false;
         public int Id { get; set; }
         public string NomeAtual { get; set; }
         public bool Atualizada { get; set; } = false;
 
-        public FormCriarTarefa() => InitializeComponent();
+        public FormCriarTarefa(TarefaService tarefaService) 
+        {
+            _tarefaService = tarefaService;
+            InitializeComponent();
+        } 
 
         #region Métodos Privados
         private bool Validar()
@@ -31,13 +36,16 @@ namespace ControleHorasApp
         {
             try
             {
-                var tarefa = new Tarefa();
-                tarefa.Nome = txtNovaTarefa.Text;
-                tarefa.DataInicio = DateTime.Now;
-                tarefa.TempoDecorrido = "00:00:00";
-                tarefa.Status = "stopped";
+                var tarefa = new Tarefa
+                {
+                    Nome = txtNovaTarefa.Text,
+                    DataInicio = DateTime.Now,
+                    TempoDecorrido = "00:00:00",
+                    Status = "stopped"
+                };
 
-                DalHelper.Add(tarefa);
+                _tarefaService.IncluirTarefa(tarefa);
+
                 LogService.Write("Criar Tarefa", tarefa.Nome);
 
                 Close();
@@ -52,7 +60,7 @@ namespace ControleHorasApp
         {
             try
             {
-                DalHelper.AtualizarNome(this.Id, txtNovaTarefa.Text);
+                _tarefaService.AtualizarNome(this.Id, txtNovaTarefa.Text);
                 LogService.Write("Atualizar Tarefa", "Atualizando Tarefa " + NomeAtual + " com novo nome " + txtNovaTarefa.Text);
                 Atualizada = true;
 
