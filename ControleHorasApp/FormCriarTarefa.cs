@@ -12,6 +12,7 @@ namespace ControleHorasApp
         public bool Edicao { get; set; } = false;
         public int Id { get; set; }
         public string NomeAtual { get; set; }
+        public string Descricao { get; set; }
         public bool Atualizada { get; set; } = false;
 
         public FormCriarTarefa(TarefaService tarefaService) 
@@ -39,6 +40,7 @@ namespace ControleHorasApp
                 var tarefa = new Tarefa
                 {
                     Nome = txtNovaTarefa.Text,
+                    Descricao = txtDescricao.Text,
                     DataInicio = DateTime.Now,
                     TempoDecorrido = "00:00:00",
                     Status = "stopped"
@@ -60,7 +62,7 @@ namespace ControleHorasApp
         {
             try
             {
-                _tarefaService.AtualizarNome(this.Id, txtNovaTarefa.Text);
+                _tarefaService.AtualizarNome(this.Id, txtNovaTarefa.Text, txtDescricao.Text);
                 LogService.Write("Atualizar Tarefa", "Atualizando Tarefa " + NomeAtual + " com novo nome " + txtNovaTarefa.Text);
                 Atualizada = true;
 
@@ -96,6 +98,7 @@ namespace ControleHorasApp
             {
                 Text = "Editar Tarefa";
                 txtNovaTarefa.Text = NomeAtual;
+                txtDescricao.Text = Descricao;
             }
         }
 

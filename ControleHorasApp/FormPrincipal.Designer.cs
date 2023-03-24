@@ -189,7 +189,7 @@ namespace ControleHorasApp
             this.dgvTarefas.RowTemplate.Height = 24;
             this.dgvTarefas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvTarefas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTarefas.Size = new System.Drawing.Size(653, 193);
+            this.dgvTarefas.Size = new System.Drawing.Size(653, 307);
             this.dgvTarefas.TabIndex = 11;
             this.dgvTarefas.TabStop = false;
             this.dgvTarefas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTarefas_CellClick);
@@ -298,10 +298,10 @@ namespace ControleHorasApp
             this.panel1.Controls.Add(this.btnPararContagem);
             this.panel1.Controls.Add(this.btnIniciarContagem);
             this.panel1.Controls.Add(this.btnExcluirTarefa);
-            this.panel1.Location = new System.Drawing.Point(-2, 336);
+            this.panel1.Location = new System.Drawing.Point(-2, 456);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(682, 68);
+            this.panel1.Size = new System.Drawing.Size(867, 68);
             this.panel1.TabIndex = 15;
             // 
             // btnEditar
@@ -323,7 +323,7 @@ namespace ControleHorasApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(680, 404);
+            this.ClientSize = new System.Drawing.Size(865, 524);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvTarefas);

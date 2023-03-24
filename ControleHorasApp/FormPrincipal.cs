@@ -109,8 +109,12 @@ namespace ControleHorasApp
             using (var formCriarTarefa = Program.ServiceProvider.GetRequiredService<FormCriarTarefa>())
             {
                 formCriarTarefa.Edicao = true;
-                formCriarTarefa.Id = ObterId();
-                formCriarTarefa.NomeAtual = ObterValorSelecionado(1);
+
+                var tarefaSelecionada = _tarefaService.GetTarefa(ObterId());
+
+                formCriarTarefa.Id = tarefaSelecionada.Id;
+                formCriarTarefa.NomeAtual = tarefaSelecionada.Nome;
+                formCriarTarefa.Descricao = tarefaSelecionada.Descricao;
 
                 formCriarTarefa.ShowDialog();
                 CarregarDados();

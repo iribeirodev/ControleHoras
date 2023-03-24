@@ -8,12 +8,13 @@ using ControleHorasApp.DTO;
 
 namespace ControleHorasApp.DAL
 {
-    public class DalHelper
+    public class DalTarefas
     {
         private SQLiteConnection sqliteConnection;
         private string createTableCmdText = "CREATE TABLE IF NOT EXISTS Tarefas" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "Nome VARCHAR(100), " +
+            "Descricao VARCHAR(500), " +
             "DataInicio VARCHAR(20), " +
             "TempoDecorrido VARCHAR(20), " +
             "Status VARCHAR(20))";
@@ -87,10 +88,46 @@ namespace ControleHorasApp.DAL
             {
                 using (var cmd = DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "SELECT t.id, t.Nome, STRFTIME('%d/%m/%Y %H:%M', t.DataInicio) AS DataInicio, t.TempoDecorrido, t.Status FROM Tarefas t";
+                    cmd.CommandText = "SELECT t.id, t.Nome, STRFTIME('%d/%m/%Y %H:%M', t.DataInicio) AS DataInicio, t.Descricao, t.TempoDecorrido, t.Status FROM Tarefas t";
                     da = new SQLiteDataAdapter(cmd.CommandText, DbConnection());
                     da.Fill(dt);
                     return dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Obtém uma tarefa pelo id
+        /// </summary>
+        public Tarefa GetTarefaById(int id)
+        {
+            SQLiteDataAdapter da = null;
+            DataTable dt = new DataTable();
+            var tarefa = new Tarefa();
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "SELECT t.id, t.Nome, STRFTIME('%d/%m/%Y %H:%M', t.DataInicio) AS DataInicio, t.Descricao, t.TempoDecorrido, t.Status FROM Tarefas t";
+                    da = new SQLiteDataAdapter(cmd.CommandText, DbConnection());
+                    da.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var dr = dt.Rows[0];
+
+                        tarefa.Id = id;
+                        tarefa.Nome = dr["Nome"].ToString();
+                        tarefa.Descricao = dr["Descricao"].ToString();
+                        tarefa.DataInicio = DateTime.Parse(dr["DataInicio"].ToString());
+                        tarefa.Descricao = dr["Descricao"].ToString();
+                        tarefa.TempoDecorrido = dr["TempoDecorrido"].ToString();
+                        tarefa.Status = dr["Status"].ToString();
+                    }
+                    return tarefa;
                 }
             }
             catch (Exception ex)
@@ -106,8 +143,9 @@ namespace ControleHorasApp.DAL
         {
             using (var cmd = DbConnection().CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Tarefas(Nome, DataInicio, TempoDecorrido, Status) values (@nome, @datainicio, @tempodecorrido, @status)";
+                cmd.CommandText = "INSERT INTO Tarefas(Nome, Descricao, DataInicio, TempoDecorrido, Status) values (@nome, @descricao, @datainicio, @tempodecorrido, @status)";
                 cmd.Parameters.AddWithValue("@nome", tarefa.Nome);
+                cmd.Parameters.AddWithValue("@descricao", tarefa.Descricao);
                 cmd.Parameters.AddWithValue("@datainicio", tarefa.DataInicio);
                 cmd.Parameters.AddWithValue("@tempodecorrido", tarefa.TempoDecorrido);
                 cmd.Parameters.AddWithValue("@status", tarefa.Status);
@@ -119,7 +157,7 @@ namespace ControleHorasApp.DAL
         /// <summary>
         /// Atualiza dados de uma tarefa
         /// </summary>
-        public void Update(int id, string novoNome="", string status="", string tempoDecorrido="")
+        public void Update(int id, string novoNome="", string descricao = "", string status="", string tempoDecorrido="")
         {
             using (var cmd = new SQLiteCommand(DbConnection()))
             {
@@ -133,6 +171,9 @@ namespace ControleHorasApp.DAL
                     fields.Add("Nome=@nome");
                     cmd.Parameters.AddWithValue("@nome", novoNome);
                 }
+
+                fields.Add("Descricao=@descricao");
+                cmd.Parameters.AddWithValue("@descricao", descricao);
 
                 if (!string.IsNullOrEmpty(status))
                 {

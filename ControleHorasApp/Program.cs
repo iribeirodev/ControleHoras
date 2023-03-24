@@ -31,7 +31,7 @@ namespace ControleHorasApp
         {
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
-                    services.AddTransient<DalHelper>();
+                    services.AddTransient<DalTarefas>();
                     services.AddTransient<TarefaService>();
                     services.AddTransient<FormCriarTarefa>();
                     services.AddTransient<FormPrincipal>();

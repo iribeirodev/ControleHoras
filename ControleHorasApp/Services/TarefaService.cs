@@ -10,9 +10,9 @@ namespace ControleHorasApp.Services
     public class TarefaService
     {
         #region constructor
-        private readonly DalHelper _dalHelper;
+        private readonly DalTarefas _dalHelper;
 
-        public TarefaService(DalHelper dalHelper)
+        public TarefaService(DalTarefas dalHelper)
         {
             _dalHelper = dalHelper;
         }
@@ -64,15 +64,30 @@ namespace ControleHorasApp.Services
         }
 
         /// <summary>
+        /// Obtém uma tarefa pelo id
+        /// </summary>
+        public Tarefa GetTarefa(int id)
+        {
+            try
+            {
+                return _dalHelper.GetTarefaById(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Atualiza o nome da tarefa pelo id
         /// </summary>
         /// <param name="id"></param>
         /// <param name="novoNome"></param>
-        public void AtualizarNome(int id, string novoNome)
+        public void AtualizarNome(int id, string novoNome, string descricao = "")
         {
             try
             {
-                _dalHelper.Update(id, novoNome: novoNome);
+                _dalHelper.Update(id, novoNome: novoNome, descricao: descricao);
             }
             catch (Exception ex)
             {

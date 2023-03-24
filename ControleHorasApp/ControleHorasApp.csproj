@@ -222,7 +222,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\DalHelper.cs" />
+    <Compile Include="DAL\DalTarefas.cs" />
     <Compile Include="DTO\Tarefa.cs" />
     <Compile Include="FormCriarTarefa.cs">
       <SubType>Form</SubType>
