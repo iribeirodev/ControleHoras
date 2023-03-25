@@ -224,6 +224,7 @@
   <ItemGroup>
     <Compile Include="DAL\DalTarefas.cs" />
     <Compile Include="DTO\Tarefa.cs" />
+    <Compile Include="EnumStatusTarefa.cs" />
     <Compile Include="FormCriarTarefa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +294,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\stop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="task.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -100,11 +100,11 @@ namespace ControleHorasApp.Services
         /// </summary>
         /// <param name="id"></param>
         /// <param name="novoStatus"></param>
-        public void AtualizarStatus(int id, string novoStatus)
+        public void AtualizarStatus(int id, EnumStatusTarefa novoStatus)
         {
             try
             {
-                _dalHelper.Update(id, status: novoStatus);
+                _dalHelper.Update(id, status: novoStatus.ToString());
             }
             catch (Exception ex)
             {
@@ -118,11 +118,11 @@ namespace ControleHorasApp.Services
         /// <param name="id"></param>
         /// <param name="tempoDecorrido"></param>
         /// <param name="novoStatus"></param>
-        public void SetarContagem(int id, string tempoDecorrido, string novoStatus)
+        public void SetarContagem(int id, string tempoDecorrido, EnumStatusTarefa novoStatus)
         {
             try
             {
-                _dalHelper.Update(id, status: novoStatus, tempoDecorrido: tempoDecorrido);
+                _dalHelper.Update(id, status: novoStatus.ToString(), tempoDecorrido: tempoDecorrido);
             }
             catch (Exception ex)
             {

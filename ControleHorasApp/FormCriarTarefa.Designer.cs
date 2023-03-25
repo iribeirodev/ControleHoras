@@ -42,7 +42,7 @@ namespace ControleHorasApp
             // 
             this.txtNovaTarefa.BackColor = System.Drawing.Color.White;
             this.txtNovaTarefa.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNovaTarefa.ForeColor = System.Drawing.Color.Black;
+            this.txtNovaTarefa.ForeColor = System.Drawing.Color.DimGray;
             this.txtNovaTarefa.Location = new System.Drawing.Point(30, 31);
             this.txtNovaTarefa.MaxLength = 100;
             this.txtNovaTarefa.Name = "txtNovaTarefa";
@@ -62,7 +62,7 @@ namespace ControleHorasApp
             // 
             // btnAplicar
             // 
-            this.btnAplicar.BackColor = System.Drawing.Color.OliveDrab;
+            this.btnAplicar.BackColor = System.Drawing.Color.SlateGray;
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
@@ -78,7 +78,7 @@ namespace ControleHorasApp
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.BackColor = System.Drawing.Color.Lavender;
             this.panel1.Controls.Add(this.btnAplicar);
             this.panel1.Location = new System.Drawing.Point(-1, 189);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
@@ -100,7 +100,7 @@ namespace ControleHorasApp
             // 
             this.txtDescricao.BackColor = System.Drawing.Color.White;
             this.txtDescricao.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescricao.ForeColor = System.Drawing.Color.Black;
+            this.txtDescricao.ForeColor = System.Drawing.Color.DimGray;
             this.txtDescricao.Location = new System.Drawing.Point(30, 82);
             this.txtDescricao.MaxLength = 500;
             this.txtDescricao.Multiline = true;
@@ -112,7 +112,7 @@ namespace ControleHorasApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(527, 247);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.label2);

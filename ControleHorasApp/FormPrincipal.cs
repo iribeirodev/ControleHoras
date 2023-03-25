@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using ControleHorasApp.Services;
+using System.Drawing;
 using Microsoft.Extensions.DependencyInjection;
+using ControleHorasApp.Services;
 
 namespace ControleHorasApp
 {
@@ -36,7 +37,7 @@ namespace ControleHorasApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro : " + ex.Message);
+                MessageBox.Show(ex.Message, "Erro");
             }
         }
 
@@ -58,16 +59,20 @@ namespace ControleHorasApp
             txtTempoDecorrido.Text = selectedRow.Cells[3].Value.ToString();
 
             string status = selectedRow.Cells[4].Value.ToString();
-            HabilitarBotoesPorStatus(status);
+
+            var statusTarefa = (EnumStatusTarefa) Enum.Parse(typeof(EnumStatusTarefa), status);
+            HabilitarBotoesPorStatus(statusTarefa);
+
+            //HabilitarBotoesPorStatus(status);
         }
 
         /// <summary>
         /// Habilita/Desabilita botões por status da tarefa
         /// </summary>
         /// <param name="status">status selecionado</param>
-        private void HabilitarBotoesPorStatus(string status)
+        private void HabilitarBotoesPorStatus(EnumStatusTarefa statusTarefa)
         {
-            if (status == "stopped")
+            if (statusTarefa == EnumStatusTarefa.Stopped)
             {
                 btnIniciarContagem.Enabled = true;
                 btnPararContagem.Enabled = false;
@@ -102,7 +107,7 @@ namespace ControleHorasApp
         {
             if (dgvTarefas.SelectedRows.Count <= 0)
             {
-                MessageBox.Show("Selecione uma tarefa primeiro.");
+                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
                 return;
             }
 
@@ -135,7 +140,7 @@ namespace ControleHorasApp
         {
             if (dgvTarefas.SelectedRows.Count <= 0)
             {
-                MessageBox.Show("Selecione uma tarefa antes.");
+                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
                 return;
             }
             if (MessageBox.Show("Vai excluir a tarefa selecionada. Continua?", "Atenção",
@@ -158,21 +163,23 @@ namespace ControleHorasApp
         /// </summary>
         private void IniciarContagem()
         {
-            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
-            var ultimaLinhaSelecionada = dgvTarefas.CurrentCell.RowIndex;
+            if (dgvTarefas.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
+                return;
+            }
 
-            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, "started");
+            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
+
+            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, EnumStatusTarefa.Started);
 
             LogService.Write("Iniciar Tarefa", ObterValorSelecionado(1));
 
             InterromperOutrasTarefas(ObterId());
+            CarregarDados(limparSelecao: false);
 
-            CarregarDados(limparSelecao: true);
-            txtNomeTarefa.Text = "";
-            txtDataInicio.Text = "";
-            txtTempoDecorrido.Text = "";
-
-            HabilitarBotoesPorStatus("started");
+            var statusTarefa = (EnumStatusTarefa)Enum.Parse(typeof(EnumStatusTarefa), "Started");
+            HabilitarBotoesPorStatus(statusTarefa);
         }
 
         /// <summary>
@@ -180,15 +187,23 @@ namespace ControleHorasApp
         /// </summary>
         private void PararContagem()
         {
+            if (dgvTarefas.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
+                return;
+            }
+
             var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
 
-            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, "stopped");
+            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, EnumStatusTarefa.Stopped);
 
             LogService.Write("Parar Tarefa", ObterValorSelecionado(1));
 
             CarregarDados(limparSelecao: false);
             MostrarItens();
-            HabilitarBotoesPorStatus("stopped");
+
+            var statusTarefa = (EnumStatusTarefa)Enum.Parse(typeof(EnumStatusTarefa), "Stopped");
+            HabilitarBotoesPorStatus(statusTarefa);
         }
 
         /// <summary>
@@ -202,7 +217,7 @@ namespace ControleHorasApp
                 var currentId = int.Parse(row.Cells[0].Value.ToString());
                 if (currentId != idTarefa)
                 {
-                    _tarefaService.AtualizarStatus(currentId, "stopped");
+                    _tarefaService.AtualizarStatus(currentId, EnumStatusTarefa.Stopped);
                     LogService.Write("Interrompendo Tarefa", row.Cells[1].Value.ToString());
                 }
             }
@@ -217,7 +232,7 @@ namespace ControleHorasApp
             foreach (DataGridViewRow row in dgvTarefas.Rows)
             {
                 var currentId = int.Parse(row.Cells[0].Value.ToString());
-                _tarefaService.AtualizarStatus(currentId, "stopped");
+                _tarefaService.AtualizarStatus(currentId, EnumStatusTarefa.Stopped);
             }
             LogService.Write("InterromperTarefas", "Fechando app");
         }
@@ -239,6 +254,19 @@ namespace ControleHorasApp
         {
             dgvTarefas.AutoGenerateColumns = false;
             CarregarDados();
+
+            btnIniciarContagem.BackgroundImageLayout = ImageLayout.Center;
+            btnIniciarContagem.BackgroundImage = Image.FromFile("Images/play.png");
+
+            btnPararContagem.BackgroundImageLayout = ImageLayout.Center;
+            btnPararContagem.BackgroundImage = Image.FromFile("Images/stop.png");
+
+            btnIniciarContagem.ImageAlign = ContentAlignment.MiddleCenter;
+            btnPararContagem.ImageAlign = ContentAlignment.MiddleCenter;
+
+            dgvTarefas.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvTarefas.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvTarefas.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e) => MostrarItens(e.RowIndex);
@@ -258,6 +286,11 @@ namespace ControleHorasApp
         }
 
         private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e) => InterromperTarefas();
+
+        private void lblClose_Click(object sender, EventArgs e) => Close();
+
+        private void lblMinimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+
         #endregion
 
     }

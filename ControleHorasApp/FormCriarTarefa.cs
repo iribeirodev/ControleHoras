@@ -54,7 +54,7 @@ namespace ControleHorasApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro : " + ex.Message);
+                MessageBox.Show(ex.Message, "Erro");
             }
         }
 
@@ -70,7 +70,7 @@ namespace ControleHorasApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro : " + ex.Message);
+                MessageBox.Show(ex.Message, "Erro");
             }
         }
 
