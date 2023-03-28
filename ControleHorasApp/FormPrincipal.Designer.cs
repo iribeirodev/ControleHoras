@@ -46,6 +46,11 @@ namespace ControleHorasApp
             this.txtDataInicio = new System.Windows.Forms.TextBox();
             this.txtTempoDecorrido = new System.Windows.Forms.TextBox();
             this.dgvTarefas = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TempoDecorrido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnLog = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -53,11 +58,6 @@ namespace ControleHorasApp
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
             this.lblMinimize = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TempoDecorrido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnIniciarContagem = new System.Windows.Forms.Button();
             this.btnPararContagem = new System.Windows.Forms.Button();
             this.timerTarefa = new System.Windows.Forms.Timer(this.components);
@@ -91,7 +91,7 @@ namespace ControleHorasApp
             this.btnExcluirTarefa.Location = new System.Drawing.Point(476, 24);
             this.btnExcluirTarefa.Name = "btnExcluirTarefa";
             this.btnExcluirTarefa.Size = new System.Drawing.Size(102, 25);
-            this.btnExcluirTarefa.TabIndex = 4;
+            this.btnExcluirTarefa.TabIndex = 2;
             this.btnExcluirTarefa.Text = "Excluir Tarefa";
             this.btnExcluirTarefa.UseVisualStyleBackColor = false;
             this.btnExcluirTarefa.Click += new System.EventHandler(this.btnExcluirTarefa_Click);
@@ -228,98 +228,6 @@ namespace ControleHorasApp
             this.dgvTarefas.TabStop = false;
             this.dgvTarefas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTarefas_CellClick);
             // 
-            // btnLog
-            // 
-            this.btnLog.BackColor = System.Drawing.Color.SlateGray;
-            this.btnLog.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLog.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLog.ForeColor = System.Drawing.Color.White;
-            this.btnLog.Location = new System.Drawing.Point(600, 24);
-            this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(102, 25);
-            this.btnLog.TabIndex = 3;
-            this.btnLog.Text = "Log";
-            this.btnLog.UseVisualStyleBackColor = false;
-            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Lavender;
-            this.panel1.Controls.Add(this.btnNovaTarefa);
-            this.panel1.Controls.Add(this.btnEditar);
-            this.panel1.Controls.Add(this.btnLog);
-            this.panel1.Controls.Add(this.btnExcluirTarefa);
-            this.panel1.Location = new System.Drawing.Point(-2, 585);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(928, 68);
-            this.panel1.TabIndex = 15;
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.BackColor = System.Drawing.Color.SlateGray;
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.ForeColor = System.Drawing.Color.White;
-            this.btnEditar.Location = new System.Drawing.Point(351, 24);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(103, 25);
-            this.btnEditar.TabIndex = 16;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // panelPrincipal
-            // 
-            this.panelPrincipal.BackColor = System.Drawing.Color.SlateBlue;
-            this.panelPrincipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelPrincipal.Controls.Add(this.lblTitulo);
-            this.panelPrincipal.Controls.Add(this.lblClose);
-            this.panelPrincipal.Controls.Add(this.lblMinimize);
-            this.panelPrincipal.ForeColor = System.Drawing.Color.White;
-            this.panelPrincipal.Location = new System.Drawing.Point(1, 1);
-            this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(925, 100);
-            this.panelPrincipal.TabIndex = 17;
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Leelawadee UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(326, 29);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(233, 37);
-            this.lblTitulo.TabIndex = 20;
-            this.lblTitulo.Text = "Controle de Horas";
-            // 
-            // lblClose
-            // 
-            this.lblClose.AutoSize = true;
-            this.lblClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClose.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClose.Location = new System.Drawing.Point(891, 7);
-            this.lblClose.Name = "lblClose";
-            this.lblClose.Size = new System.Drawing.Size(23, 25);
-            this.lblClose.TabIndex = 19;
-            this.lblClose.Text = "x";
-            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
-            // 
-            // lblMinimize
-            // 
-            this.lblMinimize.AutoSize = true;
-            this.lblMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblMinimize.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinimize.Location = new System.Drawing.Point(865, 3);
-            this.lblMinimize.Name = "lblMinimize";
-            this.lblMinimize.Size = new System.Drawing.Size(25, 32);
-            this.lblMinimize.TabIndex = 18;
-            this.lblMinimize.Text = "-";
-            this.lblMinimize.Click += new System.EventHandler(this.lblMinimize_Click);
-            // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
@@ -376,6 +284,98 @@ namespace ControleHorasApp
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
+            // btnLog
+            // 
+            this.btnLog.BackColor = System.Drawing.Color.SlateGray;
+            this.btnLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLog.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLog.ForeColor = System.Drawing.Color.White;
+            this.btnLog.Location = new System.Drawing.Point(600, 24);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(102, 25);
+            this.btnLog.TabIndex = 3;
+            this.btnLog.Text = "Log";
+            this.btnLog.UseVisualStyleBackColor = false;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.Controls.Add(this.btnNovaTarefa);
+            this.panel1.Controls.Add(this.btnEditar);
+            this.panel1.Controls.Add(this.btnLog);
+            this.panel1.Controls.Add(this.btnExcluirTarefa);
+            this.panel1.Location = new System.Drawing.Point(-2, 585);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(928, 68);
+            this.panel1.TabIndex = 15;
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.BackColor = System.Drawing.Color.SlateGray;
+            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditar.ForeColor = System.Drawing.Color.White;
+            this.btnEditar.Location = new System.Drawing.Point(351, 24);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(103, 25);
+            this.btnEditar.TabIndex = 1;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // panelPrincipal
+            // 
+            this.panelPrincipal.BackColor = System.Drawing.Color.SlateBlue;
+            this.panelPrincipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPrincipal.Controls.Add(this.lblTitulo);
+            this.panelPrincipal.Controls.Add(this.lblClose);
+            this.panelPrincipal.Controls.Add(this.lblMinimize);
+            this.panelPrincipal.ForeColor = System.Drawing.Color.White;
+            this.panelPrincipal.Location = new System.Drawing.Point(1, 1);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(925, 100);
+            this.panelPrincipal.TabIndex = 17;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Leelawadee UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(326, 29);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(233, 37);
+            this.lblTitulo.TabIndex = 20;
+            this.lblTitulo.Text = "Controle de Horas";
+            // 
+            // lblClose
+            // 
+            this.lblClose.AutoSize = true;
+            this.lblClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblClose.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClose.Location = new System.Drawing.Point(891, 7);
+            this.lblClose.Name = "lblClose";
+            this.lblClose.Size = new System.Drawing.Size(23, 25);
+            this.lblClose.TabIndex = 19;
+            this.lblClose.Text = "x";
+            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
+            // 
+            // lblMinimize
+            // 
+            this.lblMinimize.AutoSize = true;
+            this.lblMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblMinimize.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinimize.Location = new System.Drawing.Point(865, 3);
+            this.lblMinimize.Name = "lblMinimize";
+            this.lblMinimize.Size = new System.Drawing.Size(24, 32);
+            this.lblMinimize.TabIndex = 18;
+            this.lblMinimize.Text = "-";
+            this.lblMinimize.Click += new System.EventHandler(this.lblMinimize_Click);
+            // 
             // btnIniciarContagem
             // 
             this.btnIniciarContagem.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -387,7 +387,7 @@ namespace ControleHorasApp
             this.btnIniciarContagem.Location = new System.Drawing.Point(446, 199);
             this.btnIniciarContagem.Name = "btnIniciarContagem";
             this.btnIniciarContagem.Size = new System.Drawing.Size(40, 32);
-            this.btnIniciarContagem.TabIndex = 18;
+            this.btnIniciarContagem.TabIndex = 4;
             this.btnIniciarContagem.UseVisualStyleBackColor = false;
             this.btnIniciarContagem.Click += new System.EventHandler(this.btnIniciarContagem_Click);
             // 
@@ -402,7 +402,7 @@ namespace ControleHorasApp
             this.btnPararContagem.Location = new System.Drawing.Point(492, 199);
             this.btnPararContagem.Name = "btnPararContagem";
             this.btnPararContagem.Size = new System.Drawing.Size(40, 32);
-            this.btnPararContagem.TabIndex = 19;
+            this.btnPararContagem.TabIndex = 5;
             this.btnPararContagem.UseVisualStyleBackColor = false;
             this.btnPararContagem.Click += new System.EventHandler(this.btnPararContagem_Click);
             // 

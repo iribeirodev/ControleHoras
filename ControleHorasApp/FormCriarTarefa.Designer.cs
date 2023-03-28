@@ -69,7 +69,7 @@ namespace ControleHorasApp
             this.btnAplicar.Location = new System.Drawing.Point(31, 16);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(102, 25);
-            this.btnAplicar.TabIndex = 1;
+            this.btnAplicar.TabIndex = 2;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
@@ -106,7 +106,7 @@ namespace ControleHorasApp
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(468, 88);
-            this.txtDescricao.TabIndex = 18;
+            this.txtDescricao.TabIndex = 1;
             // 
             // FormCriarTarefa
             // 
