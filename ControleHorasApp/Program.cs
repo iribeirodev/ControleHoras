@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ControleHorasApp.DAL;
-using ControleHorasApp.Services;
-
+using ControleHorasApp.InfraStructure.CrossCutting;
+using ControleHorasApp.InfraStructure;
+using ControleHorasApp.InfraStructure.Migrations;
 
 namespace ControleHorasApp
 {
@@ -21,21 +20,21 @@ namespace ControleHorasApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var host = CreateHostBuilder().Build();
-            ServiceProvider = host.Services;
+            var exceptionHandler = new ExceptionHandler();
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                exceptionHandler.HandleExceptionAsync((Exception)args.ExceptionObject).Wait();
+            };
 
-            Application.Run(ServiceProvider.GetRequiredService<FormPrincipal>());
-        }
+            Application.ThreadException += (sender, args) =>
+            {
+                exceptionHandler.HandleExceptionAsync(args.Exception).Wait();
+            };
 
-        static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) => {
-                    services.AddTransient<DalTarefas>();
-                    services.AddTransient<TarefaService>();
-                    services.AddTransient<FormCriarTarefa>();
-                    services.AddTransient<FormPrincipal>();
-                });
+            var serviceProvider = Bootstrap.GetServiceProvider();
+            SqliteSnapshot.RunMigration();
+
+            Application.Run(serviceProvider.GetRequiredService<FormPrincipal>());
         }
     }
 }

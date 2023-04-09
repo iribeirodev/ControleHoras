@@ -1,297 +1,222 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using ControleHorasApp.Domain;
+using ControleHorasApp.Infrastructure.Enums;
 using ControleHorasApp.Services;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ControleHorasApp
 {
-    public partial class FormPrincipal : Form
+    public partial class FormPrincipal : BaseForm
     {
-        #region Construtor
-        private readonly TarefaService _tarefaService;
+        private readonly TaskService _taskService;
+        private List<Task> tasks = new List<Task>();
+        private int lastRowIndex = -1;
+        private const int EDITMODE_HEIGHT = 690;
+        private const int REGULARSIZE_HEIGHT = 510;
+        private bool _editMode = false;
 
-        public FormPrincipal(TarefaService tarefaService) 
+        public FormPrincipal(TaskService taskService)
         {
-            _tarefaService = tarefaService;
-
             InitializeComponent();
-        }
-        
-        #endregion
-
-        #region Métodos Privados
-
-        /// <summary>
-        /// Carrega os dados persistidos de tarefas
-        /// </summary>
-        /// <param name="limparSelecao">Após carregar tirar seleção da linha</param>
-        private void CarregarDados(bool limparSelecao = true)
-        {
-            try
-            {
-                var tarefas = _tarefaService.GetTarefas();
-                dgvTarefas.DataSource = tarefas;
-                if (limparSelecao)
-                    dgvTarefas.ClearSelection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro");
-            }
+            Height = REGULARSIZE_HEIGHT;
+            _taskService = taskService;
         }
 
-        /// <summary>
-        /// Carrega os textboxes a partir do dado selecionado da grid.
-        /// </summary>
-        /// <param name="index"></param>
-        private void MostrarItens(int index = -1)
+        private void EnableTaskEditing(bool enable = true)
         {
-            DataGridViewRow selectedRow;
-
-            if (index == -1)
-                selectedRow = dgvTarefas.SelectedRows[0];
-            else
-                selectedRow = dgvTarefas.Rows[index];
-
-            txtNomeTarefa.Text = selectedRow.Cells[1].Value.ToString();
-            txtDataInicio.Text = selectedRow.Cells[2].Value.ToString();
-            txtTempoDecorrido.Text = selectedRow.Cells[3].Value.ToString();
-
-            string status = selectedRow.Cells[4].Value.ToString();
-
-            var statusTarefa = (EnumStatusTarefa) Enum.Parse(typeof(EnumStatusTarefa), status);
-            HabilitarBotoesPorStatus(statusTarefa);
-
-            //HabilitarBotoesPorStatus(status);
-        }
-
-        /// <summary>
-        /// Habilita/Desabilita botões por status da tarefa
-        /// </summary>
-        /// <param name="status">status selecionado</param>
-        private void HabilitarBotoesPorStatus(EnumStatusTarefa statusTarefa)
-        {
-            if (statusTarefa == EnumStatusTarefa.Stopped)
+            if (!enable)
             {
-                btnIniciarContagem.Enabled = true;
-                btnPararContagem.Enabled = false;
-            }
-            else
-            {
-                btnIniciarContagem.Enabled = false;
-                btnPararContagem.Enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// Retorna a diferença de tempo no formato hh:mm:ss entre a data atual
-        /// e a data de criação da tarefa
-        /// </summary>
-        private string ObterDiferencaHoras(DateTime dataTarefa) => (DateTime.Now - dataTarefa).ToString(@"hh\:mm\:ss");
-
-        /// <summary>
-        /// Obtém qualquer valor da linha selecionada por índice de coluna
-        /// </summary>
-        private string ObterValorSelecionado(int index) => dgvTarefas.SelectedRows[0].Cells[index].Value.ToString();
-
-        /// <summary>
-        /// Obtém o id de tarefa da linha selecionada
-        /// </summary>
-        private int ObterId() => int.Parse(dgvTarefas.SelectedRows[0].Cells[0].Value.ToString());
-
-        /// <summary>
-        /// Exibe uma janela para edição do título da tarefa
-        /// </summary>
-        private void Editar()
-        {
-            if (dgvTarefas.SelectedRows.Count <= 0)
-            {
-                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
+                pnlFields.Visible = false; Height = REGULARSIZE_HEIGHT;
+                btnStart.Enabled = true;
+                btnNewTask.Enabled = true; btnDeleteTask.Enabled = true;
                 return;
             }
 
-            using (var formCriarTarefa = Program.ServiceProvider.GetRequiredService<FormCriarTarefa>())
-            {
-                formCriarTarefa.Edicao = true;
+            btnStart.Enabled = false; btnStop.Enabled = false;
+            btnNewTask.Enabled = false; btnDeleteTask.Enabled = false;  
 
-                var tarefaSelecionada = _tarefaService.GetTarefa(ObterId());
-
-                formCriarTarefa.Id = tarefaSelecionada.Id;
-                formCriarTarefa.NomeAtual = tarefaSelecionada.Nome;
-                formCriarTarefa.Descricao = tarefaSelecionada.Descricao;
-
-                formCriarTarefa.ShowDialog();
-                CarregarDados();
-
-                if (formCriarTarefa.Atualizada)
-                {
-                    txtNomeTarefa.Text = "";
-                    txtDataInicio.Text = "";
-                    txtTempoDecorrido.Text = "";
-                }
-            }
+            pnlFields.Visible = true;
+            Height = EDITMODE_HEIGHT;
         }
 
-        /// <summary>
-        /// Exclui a tarefa selecionada
-        /// </summary>
-        private void ExcluirTarefa()
-        {
-            if (dgvTarefas.SelectedRows.Count <= 0)
-            {
-                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
-                return;
-            }
-            if (MessageBox.Show("Vai excluir a tarefa selecionada. Continua?", "Atenção",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                LogService.Write("Excluir Tarefa", $"Excluindo tarefa {ObterValorSelecionado(1)} ");
-
-                _tarefaService.ExcluirTarefa(ObterId());
-                CarregarDados(limparSelecao: true);
-
-                txtNomeTarefa.Text = "";
-                txtDataInicio.Text = "";
-                txtTempoDecorrido.Text = "";
-            }
-        }
-
-        /// <summary>
-        /// Inicia a contagem de tempo de uma tarefa marcando com status started.
-        /// </summary>
-        private void IniciarContagem()
-        {
-            if (dgvTarefas.SelectedRows.Count <= 0)
-            {
-                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
-                return;
-            }
-
-            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
-
-            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, EnumStatusTarefa.Started);
-
-            LogService.Write("Iniciar Tarefa", ObterValorSelecionado(1));
-
-            InterromperOutrasTarefas(ObterId());
-            CarregarDados(limparSelecao: false);
-
-            var statusTarefa = (EnumStatusTarefa)Enum.Parse(typeof(EnumStatusTarefa), "Started");
-            HabilitarBotoesPorStatus(statusTarefa);
-        }
-
-        /// <summary>
-        /// Interrompe a contagem de tempo de uma tarefa marcando com status stopped.
-        /// </summary>
-        private void PararContagem()
-        {
-            if (dgvTarefas.SelectedRows.Count <= 0)
-            {
-                MessageBox.Show("Selecione uma tarefa primeiro.", "Atenção");
-                return;
-            }
-
-            var tempoDecorrido = ObterDiferencaHoras(DateTime.Parse(ObterValorSelecionado(2)));
-
-            _tarefaService.SetarContagem(ObterId(), tempoDecorrido, EnumStatusTarefa.Stopped);
-
-            LogService.Write("Parar Tarefa", ObterValorSelecionado(1));
-
-            CarregarDados(limparSelecao: false);
-            MostrarItens();
-
-            var statusTarefa = (EnumStatusTarefa)Enum.Parse(typeof(EnumStatusTarefa), "Stopped");
-            HabilitarBotoesPorStatus(statusTarefa);
-        }
-
-        /// <summary>
-        /// Interrompe as outras tarefas com exceção da tarefa idTarefa.
-        /// </summary>
-        /// <param name="idTarefa"></param>
-        private void InterromperOutrasTarefas(int idTarefa)
-        {
-            foreach (DataGridViewRow row in dgvTarefas.Rows)
-            {
-                var currentId = int.Parse(row.Cells[0].Value.ToString());
-                if (currentId != idTarefa)
-                {
-                    _tarefaService.AtualizarStatus(currentId, EnumStatusTarefa.Stopped);
-                    LogService.Write("Interrompendo Tarefa", row.Cells[1].Value.ToString());
-                }
-            }
-            CarregarDados();
-        }
-
-        /// <summary>
-        /// Interrompe todas as tarefas marcando com status stopped.
-        /// </summary>
-        private void InterromperTarefas()
-        {
-            foreach (DataGridViewRow row in dgvTarefas.Rows)
-            {
-                var currentId = int.Parse(row.Cells[0].Value.ToString());
-                _tarefaService.AtualizarStatus(currentId, EnumStatusTarefa.Stopped);
-            }
-            LogService.Write("InterromperTarefas", "Fechando app");
-        }
-
-        #endregion
-
-        #region Eventos
-        private void btnNovaTarefa_Click(object sender, EventArgs e)
-        {
-            using (var formCriarTarefa = Program.ServiceProvider.GetRequiredService<FormCriarTarefa>())
-            {
-                formCriarTarefa.ShowDialog();
-            }
-                
-            CarregarDados();
-        }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            TituloForm = "Controle de Tarefas";
+
             dgvTarefas.AutoGenerateColumns = false;
-            CarregarDados();
 
-            btnIniciarContagem.BackgroundImageLayout = ImageLayout.Center;
-            btnIniciarContagem.BackgroundImage = Image.FromFile("Images/play.png");
+            tasks = _taskService.GetTasks();
 
-            btnPararContagem.BackgroundImageLayout = ImageLayout.Center;
-            btnPararContagem.BackgroundImage = Image.FromFile("Images/stop.png");
-
-            btnIniciarContagem.ImageAlign = ContentAlignment.MiddleCenter;
-            btnPararContagem.ImageAlign = ContentAlignment.MiddleCenter;
-
-            dgvTarefas.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvTarefas.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvTarefas.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvTarefas.DataSource = tasks;
+            dgvTarefas.ClearSelection();
         }
 
-        private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e) => MostrarItens(e.RowIndex);
-
-        private void btnIniciarContagem_Click(object sender, EventArgs e) => IniciarContagem();
-
-        private void btnPararContagem_Click(object sender, EventArgs e) => PararContagem();
-
-        private void btnEditar_Click(object sender, EventArgs e) => Editar();
-
-        private void btnExcluirTarefa_Click(object sender, EventArgs e) => ExcluirTarefa();
-
-        private void btnLog_Click(object sender, EventArgs e)
+        private void EnableButtons(bool enable)
         {
-            var frmLog = new FormLog();
-            frmLog.ShowDialog();
+            btnStart.Enabled = enable;
+            btnStop.Enabled = !enable;
         }
 
-        private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e) => InterromperTarefas();
+        private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
 
-        private void lblClose_Click(object sender, EventArgs e) => Close();
+            if (timer1.Enabled)
+            {
+                MessageBox.Show("Pare a última tarefa iniciada primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                dgvTarefas.ClearSelection();
+                dgvTarefas.Rows[lastRowIndex].Selected = true;
+                return;
+            }
 
-        private void lblMinimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+            btnDeleteTask.Enabled = true;
 
-        #endregion
+            var status = (EnumTaskStatus) dgvTarefas.SelectedRows[0].Cells[4].Value;
+            if (status == EnumTaskStatus.Started)
+            {
+                EnableButtons(false);
+            }   
+            else
+                EnableButtons(true);
 
+            lblTaskName.Text = dgvTarefas.SelectedRows[0].Cells[1].Value.ToString();
+            lblCurrentTime.Text = dgvTarefas.SelectedRows[0].Cells[2].Value.ToString();
+            lastRowIndex = e.RowIndex;
+        }
+
+        private void StopAllTasks(int exceptId)
+        {
+            for (int i = 0; i < dgvTarefas.Rows.Count; i++)
+            {
+                var id = (int)dgvTarefas.Rows[i].Cells[0].Value;
+                if (id != exceptId)
+                {
+                    dgvTarefas.Rows[i].Cells[4].Value = "Stopped";
+                }
+            }
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            EnableButtons(false);
+
+            btnNewTask.Enabled = false;
+            btnDeleteTask.Enabled = false;
+
+            dgvTarefas.SelectedRows[0].Cells[4].Value = "Started";
+            StopAllTasks((int)dgvTarefas.SelectedRows[0].Cells[0].Value);
+
+            timer1.Enabled = true;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            EnableButtons(true);
+
+            btnNewTask.Enabled = true;
+            btnDeleteTask.Enabled = true;
+
+            dgvTarefas.SelectedRows[0].Cells[4].Value = "Stopped";
+
+            timer1.Enabled = false;
+
+            _taskService.UpdateCurrentTime(
+                (int)dgvTarefas.SelectedRows[0].Cells[0].Value,
+                lblCurrentTime.Text
+            );
+
+            dgvTarefas.Rows[lastRowIndex].Cells[2].Value = lblCurrentTime.Text;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var tempoAtual = TimeSpan.Parse(lblCurrentTime.Text);
+
+            tempoAtual += TimeSpan.FromSeconds(1);
+            lblCurrentTime.Text = string.Format("{0:hh\\:mm\\:ss}", tempoAtual);
+        }
+
+        private void btnNewTask_Click(object sender, EventArgs e)
+        {
+            dgvTarefas.ClearSelection();
+            lblTaskName.Text = ""; lblCurrentTime.Text = "";
+
+            txtTaskName.Text = "";
+            mskEstimatedTime.Text = "";
+            txtDescription.Text = "";
+
+            EnableTaskEditing();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            EnableTaskEditing(false);
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtTaskName.Text))
+            {
+                MessageBox.Show("A tarefa não tem um nome definido.");
+                return;
+            }
+
+            mskEstimatedTime.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+
+            if (string.IsNullOrEmpty(mskEstimatedTime.Text) || 
+                mskEstimatedTime.Text == "00:00:00")
+            {
+                MessageBox.Show("A tarefa não tem um tempo estimado.");
+                mskEstimatedTime.TextMaskFormat = MaskFormat.IncludeLiterals;
+                return;
+            }
+
+            mskEstimatedTime.TextMaskFormat = MaskFormat.IncludeLiterals;
+
+            if (_editMode)
+                _taskService.UpdateInfo(
+                    (int)dgvTarefas.SelectedRows[0].Cells[0].Value,
+                    txtTaskName.Text, 
+                    mskEstimatedTime.Text, 
+                    txtDescription.Text);
+            else
+                _taskService.AddTask(
+                    new Task { 
+                        TaskName = txtTaskName.Text,
+                        Description = txtDescription.Text,
+                        EstimatedTime = mskEstimatedTime.Text
+                    });
+
+            EnableTaskEditing(false);
+
+            tasks = _taskService.GetTasks();
+            dgvTarefas.DataSource = tasks;
+        }
+
+        private void pnlFields_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, pnlFields.ClientRectangle, Color.FromArgb(12, 109, 255), ButtonBorderStyle.Solid);
+        }
+
+        private void dgvTarefas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            var taskId = (int)dgvTarefas.SelectedRows[0].Cells[0].Value;
+            var taskToEdit = _taskService.GetTask(taskId);
+
+            txtTaskName.Text = taskToEdit.TaskName;
+            mskEstimatedTime.Text = taskToEdit.EstimatedTime;
+            txtDescription.Text = taskToEdit.Description;
+
+            _editMode = true;
+
+            EnableTaskEditing();
+        }
     }
 }

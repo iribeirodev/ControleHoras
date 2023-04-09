@@ -1,5 +1,4 @@
-﻿
-namespace ControleHorasApp
+﻿namespace ControleHorasApp
 {
     partial class FormPrincipal
     {
@@ -30,147 +29,82 @@ namespace ControleHorasApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
-            this.btnNovaTarefa = new System.Windows.Forms.Button();
-            this.btnExcluirTarefa = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtNomeTarefa = new System.Windows.Forms.TextBox();
-            this.txtDataInicio = new System.Windows.Forms.TextBox();
-            this.txtTempoDecorrido = new System.Windows.Forms.TextBox();
+            this.lblCurrentTime = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pnlDataGrid = new System.Windows.Forms.Panel();
             this.dgvTarefas = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblTaskName = new System.Windows.Forms.Label();
+            this.pnlFunctions = new System.Windows.Forms.Panel();
+            this.btnDeleteTask = new System.Windows.Forms.Button();
+            this.btnNewTask = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.pnlFields = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.mskEstimatedTime = new System.Windows.Forms.MaskedTextBox();
+            this.txtTaskName = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TempoDecorrido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CurrentTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EstimatedTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnLog = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.panelPrincipal = new System.Windows.Forms.Panel();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblClose = new System.Windows.Forms.Label();
-            this.lblMinimize = new System.Windows.Forms.Label();
-            this.btnIniciarContagem = new System.Windows.Forms.Button();
-            this.btnPararContagem = new System.Windows.Forms.Button();
-            this.timerTarefa = new System.Windows.Forms.Timer(this.components);
+            this.DateCreated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlDataGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarefas)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panelPrincipal.SuspendLayout();
+            this.pnlFunctions.SuspendLayout();
+            this.pnlFields.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnNovaTarefa
+            // btnMinimizar
             // 
-            this.btnNovaTarefa.BackColor = System.Drawing.Color.SlateGray;
-            this.btnNovaTarefa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNovaTarefa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNovaTarefa.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNovaTarefa.ForeColor = System.Drawing.Color.White;
-            this.btnNovaTarefa.Location = new System.Drawing.Point(227, 24);
-            this.btnNovaTarefa.Name = "btnNovaTarefa";
-            this.btnNovaTarefa.Size = new System.Drawing.Size(102, 25);
-            this.btnNovaTarefa.TabIndex = 0;
-            this.btnNovaTarefa.Text = "Nova Tarefa";
-            this.btnNovaTarefa.UseVisualStyleBackColor = false;
-            this.btnNovaTarefa.Click += new System.EventHandler(this.btnNovaTarefa_Click);
+            this.btnMinimizar.Location = new System.Drawing.Point(793, 12);
             // 
-            // btnExcluirTarefa
+            // btnFechar
             // 
-            this.btnExcluirTarefa.BackColor = System.Drawing.Color.Crimson;
-            this.btnExcluirTarefa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExcluirTarefa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluirTarefa.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirTarefa.ForeColor = System.Drawing.Color.White;
-            this.btnExcluirTarefa.Location = new System.Drawing.Point(476, 24);
-            this.btnExcluirTarefa.Name = "btnExcluirTarefa";
-            this.btnExcluirTarefa.Size = new System.Drawing.Size(102, 25);
-            this.btnExcluirTarefa.TabIndex = 2;
-            this.btnExcluirTarefa.Text = "Excluir Tarefa";
-            this.btnExcluirTarefa.UseVisualStyleBackColor = false;
-            this.btnExcluirTarefa.Click += new System.EventHandler(this.btnExcluirTarefa_Click);
+            this.btnFechar.Location = new System.Drawing.Point(834, 12);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(140, 142);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(629, 439);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 19);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Tarefa:";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Current Time:";
             // 
-            // label2
+            // lblCurrentTime
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(140, 177);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 19);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Data de Início:";
+            this.lblCurrentTime.BackColor = System.Drawing.Color.White;
+            this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.lblCurrentTime.Location = new System.Drawing.Point(727, 433);
+            this.lblCurrentTime.Name = "lblCurrentTime";
+            this.lblCurrentTime.Size = new System.Drawing.Size(100, 23);
+            this.lblCurrentTime.TabIndex = 4;
+            this.lblCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // timer1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(140, 209);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 19);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Tempo Decorrido:";
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // txtNomeTarefa
+            // pnlDataGrid
             // 
-            this.txtNomeTarefa.BackColor = System.Drawing.Color.White;
-            this.txtNomeTarefa.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNomeTarefa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNomeTarefa.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomeTarefa.ForeColor = System.Drawing.Color.Black;
-            this.txtNomeTarefa.Location = new System.Drawing.Point(282, 141);
-            this.txtNomeTarefa.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNomeTarefa.Name = "txtNomeTarefa";
-            this.txtNomeTarefa.ReadOnly = true;
-            this.txtNomeTarefa.Size = new System.Drawing.Size(438, 19);
-            this.txtNomeTarefa.TabIndex = 8;
-            this.txtNomeTarefa.TabStop = false;
-            // 
-            // txtDataInicio
-            // 
-            this.txtDataInicio.BackColor = System.Drawing.Color.White;
-            this.txtDataInicio.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDataInicio.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDataInicio.ForeColor = System.Drawing.Color.Black;
-            this.txtDataInicio.Location = new System.Drawing.Point(281, 176);
-            this.txtDataInicio.Margin = new System.Windows.Forms.Padding(2);
-            this.txtDataInicio.Name = "txtDataInicio";
-            this.txtDataInicio.ReadOnly = true;
-            this.txtDataInicio.Size = new System.Drawing.Size(151, 19);
-            this.txtDataInicio.TabIndex = 9;
-            this.txtDataInicio.TabStop = false;
-            // 
-            // txtTempoDecorrido
-            // 
-            this.txtTempoDecorrido.BackColor = System.Drawing.Color.White;
-            this.txtTempoDecorrido.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTempoDecorrido.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTempoDecorrido.ForeColor = System.Drawing.Color.Black;
-            this.txtTempoDecorrido.Location = new System.Drawing.Point(281, 210);
-            this.txtTempoDecorrido.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTempoDecorrido.Name = "txtTempoDecorrido";
-            this.txtTempoDecorrido.ReadOnly = true;
-            this.txtTempoDecorrido.Size = new System.Drawing.Size(151, 19);
-            this.txtTempoDecorrido.TabIndex = 10;
-            this.txtTempoDecorrido.TabStop = false;
+            this.pnlDataGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(255)))));
+            this.pnlDataGrid.Controls.Add(this.dgvTarefas);
+            this.pnlDataGrid.Location = new System.Drawing.Point(98, 105);
+            this.pnlDataGrid.Name = "pnlDataGrid";
+            this.pnlDataGrid.Padding = new System.Windows.Forms.Padding(1);
+            this.pnlDataGrid.Size = new System.Drawing.Size(730, 312);
+            this.pnlDataGrid.TabIndex = 5;
             // 
             // dgvTarefas
             // 
@@ -179,297 +113,366 @@ namespace ControleHorasApp
             this.dgvTarefas.AllowUserToResizeColumns = false;
             this.dgvTarefas.AllowUserToResizeRows = false;
             this.dgvTarefas.BackgroundColor = System.Drawing.Color.White;
-            this.dgvTarefas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvTarefas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTarefas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvTarefas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTarefas.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvTarefas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvTarefas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.Nome,
-            this.DataInicio,
-            this.TempoDecorrido,
-            this.Status});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTarefas.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvTarefas.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvTarefas.Location = new System.Drawing.Point(35, 255);
-            this.dgvTarefas.Margin = new System.Windows.Forms.Padding(2);
+            this.TaskName,
+            this.CurrentTime,
+            this.EstimatedTime,
+            this.Status,
+            this.DateCreated});
+            this.dgvTarefas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTarefas.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgvTarefas.Location = new System.Drawing.Point(1, 1);
             this.dgvTarefas.Name = "dgvTarefas";
             this.dgvTarefas.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTarefas.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvTarefas.RowHeadersVisible = false;
-            this.dgvTarefas.RowHeadersWidth = 51;
             this.dgvTarefas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvTarefas.RowTemplate.Height = 24;
             this.dgvTarefas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvTarefas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTarefas.Size = new System.Drawing.Size(857, 307);
-            this.dgvTarefas.TabIndex = 11;
-            this.dgvTarefas.TabStop = false;
+            this.dgvTarefas.Size = new System.Drawing.Size(728, 310);
+            this.dgvTarefas.TabIndex = 1;
             this.dgvTarefas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTarefas_CellClick);
+            this.dgvTarefas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTarefas_CellDoubleClick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(98, 439);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Selected Task:";
+            // 
+            // lblTaskName
+            // 
+            this.lblTaskName.BackColor = System.Drawing.Color.White;
+            this.lblTaskName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTaskName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.lblTaskName.Location = new System.Drawing.Point(194, 433);
+            this.lblTaskName.Name = "lblTaskName";
+            this.lblTaskName.Size = new System.Drawing.Size(417, 23);
+            this.lblTaskName.TabIndex = 7;
+            this.lblTaskName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pnlFunctions
+            // 
+            this.pnlFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlFunctions.BackColor = System.Drawing.Color.Gainsboro;
+            this.pnlFunctions.Controls.Add(this.btnDeleteTask);
+            this.pnlFunctions.Controls.Add(this.btnNewTask);
+            this.pnlFunctions.Controls.Add(this.btnStop);
+            this.pnlFunctions.Controls.Add(this.btnStart);
+            this.pnlFunctions.Location = new System.Drawing.Point(-1, 638);
+            this.pnlFunctions.Name = "pnlFunctions";
+            this.pnlFunctions.Size = new System.Drawing.Size(898, 50);
+            this.pnlFunctions.TabIndex = 10;
+            // 
+            // btnDeleteTask
+            // 
+            this.btnDeleteTask.BackColor = System.Drawing.Color.White;
+            this.btnDeleteTask.Enabled = false;
+            this.btnDeleteTask.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnDeleteTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteTask.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteTask.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnDeleteTask.Location = new System.Drawing.Point(734, 10);
+            this.btnDeleteTask.Name = "btnDeleteTask";
+            this.btnDeleteTask.Size = new System.Drawing.Size(95, 30);
+            this.btnDeleteTask.TabIndex = 13;
+            this.btnDeleteTask.Text = "Remove Task";
+            this.btnDeleteTask.UseVisualStyleBackColor = false;
+            // 
+            // btnNewTask
+            // 
+            this.btnNewTask.BackColor = System.Drawing.Color.White;
+            this.btnNewTask.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnNewTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewTask.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewTask.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnNewTask.Location = new System.Drawing.Point(633, 10);
+            this.btnNewTask.Name = "btnNewTask";
+            this.btnNewTask.Size = new System.Drawing.Size(95, 30);
+            this.btnNewTask.TabIndex = 12;
+            this.btnNewTask.Text = "New Task";
+            this.btnNewTask.UseVisualStyleBackColor = false;
+            this.btnNewTask.Click += new System.EventHandler(this.btnNewTask_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.BackColor = System.Drawing.Color.White;
+            this.btnStop.Enabled = false;
+            this.btnStop.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStop.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnStop.Location = new System.Drawing.Point(198, 10);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(95, 30);
+            this.btnStop.TabIndex = 11;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.White;
+            this.btnStart.Enabled = false;
+            this.btnStart.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnStart.Location = new System.Drawing.Point(97, 10);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(95, 30);
+            this.btnStart.TabIndex = 10;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // pnlFields
+            // 
+            this.pnlFields.BackColor = System.Drawing.Color.White;
+            this.pnlFields.Controls.Add(this.btnCancel);
+            this.pnlFields.Controls.Add(this.btnApply);
+            this.pnlFields.Controls.Add(this.mskEstimatedTime);
+            this.pnlFields.Controls.Add(this.txtTaskName);
+            this.pnlFields.Controls.Add(this.txtDescription);
+            this.pnlFields.Controls.Add(this.label5);
+            this.pnlFields.Controls.Add(this.label4);
+            this.pnlFields.Controls.Add(this.label3);
+            this.pnlFields.Location = new System.Drawing.Point(98, 474);
+            this.pnlFields.Name = "pnlFields";
+            this.pnlFields.Padding = new System.Windows.Forms.Padding(1);
+            this.pnlFields.Size = new System.Drawing.Size(730, 158);
+            this.pnlFields.TabIndex = 11;
+            this.pnlFields.Visible = false;
+            this.pnlFields.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlFields_Paint);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnCancel.Location = new System.Drawing.Point(602, 114);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(95, 30);
+            this.btnCancel.TabIndex = 14;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnApply
+            // 
+            this.btnApply.BackColor = System.Drawing.Color.White;
+            this.btnApply.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApply.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApply.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(109)))), ((int)(((byte)(179)))));
+            this.btnApply.Location = new System.Drawing.Point(500, 114);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(95, 30);
+            this.btnApply.TabIndex = 13;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = false;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // mskEstimatedTime
+            // 
+            this.mskEstimatedTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(237)))), ((int)(((byte)(240)))));
+            this.mskEstimatedTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mskEstimatedTime.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            this.mskEstimatedTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mskEstimatedTime.ForeColor = System.Drawing.Color.Black;
+            this.mskEstimatedTime.Location = new System.Drawing.Point(581, 12);
+            this.mskEstimatedTime.Mask = "00:00:00";
+            this.mskEstimatedTime.Name = "mskEstimatedTime";
+            this.mskEstimatedTime.Size = new System.Drawing.Size(116, 23);
+            this.mskEstimatedTime.TabIndex = 1;
+            this.mskEstimatedTime.Text = "000000";
+            this.mskEstimatedTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mskEstimatedTime.ValidatingType = typeof(System.DateTime);
+            // 
+            // txtTaskName
+            // 
+            this.txtTaskName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(237)))), ((int)(((byte)(240)))));
+            this.txtTaskName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTaskName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskName.ForeColor = System.Drawing.Color.Black;
+            this.txtTaskName.Location = new System.Drawing.Point(109, 12);
+            this.txtTaskName.MaxLength = 500;
+            this.txtTaskName.Name = "txtTaskName";
+            this.txtTaskName.Size = new System.Drawing.Size(353, 23);
+            this.txtTaskName.TabIndex = 0;
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(237)))), ((int)(((byte)(240)))));
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescription.ForeColor = System.Drawing.Color.Black;
+            this.txtDescription.Location = new System.Drawing.Point(42, 62);
+            this.txtDescription.MaxLength = 500;
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(655, 41);
+            this.txtDescription.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(40, 46);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Description:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(488, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Estimated Time:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(40, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Task Name:";
             // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
             this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             this.Id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Id.Visible = false;
-            this.Id.Width = 125;
             // 
-            // Nome
+            // TaskName
             // 
-            this.Nome.DataPropertyName = "Nome";
-            this.Nome.HeaderText = "Nome";
-            this.Nome.MinimumWidth = 6;
-            this.Nome.Name = "Nome";
-            this.Nome.ReadOnly = true;
-            this.Nome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Nome.Width = 480;
+            this.TaskName.DataPropertyName = "TaskName";
+            this.TaskName.HeaderText = "Task Name";
+            this.TaskName.Name = "TaskName";
+            this.TaskName.ReadOnly = true;
+            this.TaskName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.TaskName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TaskName.Width = 250;
             // 
-            // DataInicio
+            // CurrentTime
             // 
-            this.DataInicio.DataPropertyName = "DataInicio";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataInicio.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataInicio.HeaderText = "Data de Início";
-            this.DataInicio.MinimumWidth = 6;
-            this.DataInicio.Name = "DataInicio";
-            this.DataInicio.ReadOnly = true;
-            this.DataInicio.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataInicio.Width = 150;
+            this.CurrentTime.DataPropertyName = "CurrentTime";
+            this.CurrentTime.HeaderText = "Total Time";
+            this.CurrentTime.Name = "CurrentTime";
+            this.CurrentTime.ReadOnly = true;
+            this.CurrentTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CurrentTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // TempoDecorrido
+            // EstimatedTime
             // 
-            this.TempoDecorrido.DataPropertyName = "TempoDecorrido";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Red;
-            this.TempoDecorrido.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TempoDecorrido.HeaderText = "Tempo Decorrido";
-            this.TempoDecorrido.MinimumWidth = 6;
-            this.TempoDecorrido.Name = "TempoDecorrido";
-            this.TempoDecorrido.ReadOnly = true;
-            this.TempoDecorrido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.TempoDecorrido.Width = 120;
+            this.EstimatedTime.DataPropertyName = "EstimatedTime";
+            this.EstimatedTime.HeaderText = "Estimated Time";
+            this.EstimatedTime.Name = "EstimatedTime";
+            this.EstimatedTime.ReadOnly = true;
+            this.EstimatedTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.EstimatedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.EstimatedTime.Width = 120;
             // 
             // Status
             // 
             this.Status.DataPropertyName = "Status";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Status.DefaultCellStyle = dataGridViewCellStyle4;
             this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
+            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // btnLog
+            // DateCreated
             // 
-            this.btnLog.BackColor = System.Drawing.Color.SlateGray;
-            this.btnLog.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLog.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLog.ForeColor = System.Drawing.Color.White;
-            this.btnLog.Location = new System.Drawing.Point(600, 24);
-            this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(102, 25);
-            this.btnLog.TabIndex = 3;
-            this.btnLog.Text = "Log";
-            this.btnLog.UseVisualStyleBackColor = false;
-            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Lavender;
-            this.panel1.Controls.Add(this.btnNovaTarefa);
-            this.panel1.Controls.Add(this.btnEditar);
-            this.panel1.Controls.Add(this.btnLog);
-            this.panel1.Controls.Add(this.btnExcluirTarefa);
-            this.panel1.Location = new System.Drawing.Point(-2, 585);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(928, 68);
-            this.panel1.TabIndex = 15;
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.BackColor = System.Drawing.Color.SlateGray;
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.ForeColor = System.Drawing.Color.White;
-            this.btnEditar.Location = new System.Drawing.Point(351, 24);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(103, 25);
-            this.btnEditar.TabIndex = 1;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // panelPrincipal
-            // 
-            this.panelPrincipal.BackColor = System.Drawing.Color.SlateBlue;
-            this.panelPrincipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelPrincipal.Controls.Add(this.lblTitulo);
-            this.panelPrincipal.Controls.Add(this.lblClose);
-            this.panelPrincipal.Controls.Add(this.lblMinimize);
-            this.panelPrincipal.ForeColor = System.Drawing.Color.White;
-            this.panelPrincipal.Location = new System.Drawing.Point(1, 1);
-            this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(925, 100);
-            this.panelPrincipal.TabIndex = 17;
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Leelawadee UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(326, 29);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(233, 37);
-            this.lblTitulo.TabIndex = 20;
-            this.lblTitulo.Text = "Controle de Horas";
-            // 
-            // lblClose
-            // 
-            this.lblClose.AutoSize = true;
-            this.lblClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClose.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClose.Location = new System.Drawing.Point(891, 7);
-            this.lblClose.Name = "lblClose";
-            this.lblClose.Size = new System.Drawing.Size(23, 25);
-            this.lblClose.TabIndex = 19;
-            this.lblClose.Text = "x";
-            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
-            // 
-            // lblMinimize
-            // 
-            this.lblMinimize.AutoSize = true;
-            this.lblMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblMinimize.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinimize.Location = new System.Drawing.Point(865, 3);
-            this.lblMinimize.Name = "lblMinimize";
-            this.lblMinimize.Size = new System.Drawing.Size(24, 32);
-            this.lblMinimize.TabIndex = 18;
-            this.lblMinimize.Text = "-";
-            this.lblMinimize.Click += new System.EventHandler(this.lblMinimize_Click);
-            // 
-            // btnIniciarContagem
-            // 
-            this.btnIniciarContagem.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnIniciarContagem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnIniciarContagem.Enabled = false;
-            this.btnIniciarContagem.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.btnIniciarContagem.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lavender;
-            this.btnIniciarContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciarContagem.Location = new System.Drawing.Point(446, 199);
-            this.btnIniciarContagem.Name = "btnIniciarContagem";
-            this.btnIniciarContagem.Size = new System.Drawing.Size(40, 32);
-            this.btnIniciarContagem.TabIndex = 4;
-            this.btnIniciarContagem.UseVisualStyleBackColor = false;
-            this.btnIniciarContagem.Click += new System.EventHandler(this.btnIniciarContagem_Click);
-            // 
-            // btnPararContagem
-            // 
-            this.btnPararContagem.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnPararContagem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPararContagem.Enabled = false;
-            this.btnPararContagem.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-            this.btnPararContagem.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lavender;
-            this.btnPararContagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPararContagem.Location = new System.Drawing.Point(492, 199);
-            this.btnPararContagem.Name = "btnPararContagem";
-            this.btnPararContagem.Size = new System.Drawing.Size(40, 32);
-            this.btnPararContagem.TabIndex = 5;
-            this.btnPararContagem.UseVisualStyleBackColor = false;
-            this.btnPararContagem.Click += new System.EventHandler(this.btnPararContagem_Click);
-            // 
-            // timerTarefa
-            // 
-            this.timerTarefa.Interval = 1000;
+            this.DateCreated.DataPropertyName = "DateCreated";
+            this.DateCreated.HeaderText = "Date Created";
+            this.DateCreated.Name = "DateCreated";
+            this.DateCreated.ReadOnly = true;
+            this.DateCreated.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.DateCreated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(926, 653);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnPararContagem);
-            this.Controls.Add(this.btnIniciarContagem);
-            this.Controls.Add(this.panelPrincipal);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dgvTarefas);
-            this.Controls.Add(this.txtTempoDecorrido);
-            this.Controls.Add(this.txtDataInicio);
-            this.Controls.Add(this.txtNomeTarefa);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(896, 688);
+            this.Controls.Add(this.pnlFields);
+            this.Controls.Add(this.pnlFunctions);
+            this.Controls.Add(this.lblTaskName);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.pnlDataGrid);
+            this.Controls.Add(this.lblCurrentTime);
             this.Controls.Add(this.label1);
-            this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPrincipal_FormClosed);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.lblCurrentTime, 0);
+            this.Controls.SetChildIndex(this.btnMinimizar, 0);
+            this.Controls.SetChildIndex(this.btnFechar, 0);
+            this.Controls.SetChildIndex(this.pnlDataGrid, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.lblTaskName, 0);
+            this.Controls.SetChildIndex(this.pnlFunctions, 0);
+            this.Controls.SetChildIndex(this.pnlFields, 0);
+            this.pnlDataGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarefas)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panelPrincipal.ResumeLayout(false);
-            this.panelPrincipal.PerformLayout();
+            this.pnlFunctions.ResumeLayout(false);
+            this.pnlFields.ResumeLayout(false);
+            this.pnlFields.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnNovaTarefa;
-        private System.Windows.Forms.Button btnExcluirTarefa;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtNomeTarefa;
-        private System.Windows.Forms.TextBox txtDataInicio;
-        private System.Windows.Forms.TextBox txtTempoDecorrido;
+        private System.Windows.Forms.Label lblCurrentTime;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel pnlDataGrid;
         private System.Windows.Forms.DataGridView dgvTarefas;
-        private System.Windows.Forms.Button btnLog;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.Panel panelPrincipal;
-        private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblClose;
-        private System.Windows.Forms.Label lblMinimize;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTaskName;
+        private System.Windows.Forms.Panel pnlFunctions;
+        private System.Windows.Forms.Button btnDeleteTask;
+        private System.Windows.Forms.Button btnNewTask;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Panel pnlFields;
+        private System.Windows.Forms.TextBox txtTaskName;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.MaskedTextBox mskEstimatedTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataInicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TempoDecorrido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CurrentTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EstimatedTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.Button btnIniciarContagem;
-        private System.Windows.Forms.Button btnPararContagem;
-        private System.Windows.Forms.Timer timerTarefa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreated;
     }
 }
-
