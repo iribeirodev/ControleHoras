@@ -248,6 +248,12 @@
       <DependentUpon>TaskUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\Task.cs" />
+    <Compile Include="FormCriarTarefa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCriarTarefa.Designer.cs">
+      <DependentUpon>FormCriarTarefa.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +262,8 @@
     </Compile>
     <Compile Include="Infrastructure\CrossCutting\Bootstrap.cs" />
     <Compile Include="Infrastructure\CrossCutting\ExceptionHandler.cs" />
+    <Compile Include="Infrastructure\CrossCutting\DefaultMessage.cs" />
+    <Compile Include="Infrastructure\Enums\EnumMessageAnswers.cs" />
     <Compile Include="Infrastructure\Enums\EnumTaskStatus.cs" />
     <Compile Include="Infrastructure\Migrations\SqliteSnapshot.cs" />
     <Compile Include="Infrastructure\Repository\BaseRepository.cs" />
@@ -269,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Components\TaskUserControl.resx">
       <DependentUpon>TaskUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCriarTarefa.resx">
+      <DependentUpon>FormCriarTarefa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

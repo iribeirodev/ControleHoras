@@ -19,6 +19,7 @@ namespace ControleHorasApp.InfraStructure
                 .ConfigureServices((context, services) =>
                 {
                     services.AddTransient<FormPrincipal>();
+                    services.AddTransient<FormCriarTarefa>();
                     services.AddTransient<TaskService>();
                     services.AddTransient<LogService>();
                     services.AddTransient<TarefaRepository>();
