@@ -7,6 +7,7 @@ using ControleHorasApp.Infrastructure.Enums;
 using ControleHorasApp.InfraStructure;
 using ControleHorasApp.Services;
 using ControleHorasApp.Infrastructure.CrossCutting;
+using System.Drawing;
 
 namespace ControleHorasApp
 {
@@ -32,12 +33,28 @@ namespace ControleHorasApp
 
             dgvTarefas.DataSource = tasks;
             dgvTarefas.ClearSelection();
+
+            btnStart.Enabled = false;
+            btnStop.Enabled = false;
+            btnDeleteTask.Enabled = false;
+            lblTaskName.Text = "";
+            lblCurrentTime.Text = "";
         }
 
         private void EnableButtons(bool enable)
         {
             btnStart.Enabled = enable;
             btnStop.Enabled = !enable;
+        }
+
+        private void ChecarTempoTarefa()
+        {
+            var estimatedTime = TimeSpan.Parse(dgvTarefas.SelectedRows[0].Cells[3].Value.ToString());
+            var currentTime = TimeSpan.Parse(lblCurrentTime.Text);
+            if (currentTime >= estimatedTime)
+                lblCurrentTime.ForeColor = Color.Red;
+            else
+                lblCurrentTime.ForeColor = Color.FromArgb(12, 109, 179);
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -124,6 +141,8 @@ namespace ControleHorasApp
 
             tempoAtual += TimeSpan.FromSeconds(1);
             lblCurrentTime.Text = string.Format("{0:hh\\:mm\\:ss}", tempoAtual);
+
+            ChecarTempoTarefa();
         }
 
         private void dgvTarefas_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -152,6 +171,8 @@ namespace ControleHorasApp
             lblTaskName.Text = dgvTarefas.SelectedRows[0].Cells[1].Value.ToString();
             lblCurrentTime.Text = dgvTarefas.SelectedRows[0].Cells[2].Value.ToString();
             lastRowIndex = e.RowIndex;
+
+            ChecarTempoTarefa();
         }
 
         private void dgvTarefas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -167,6 +188,35 @@ namespace ControleHorasApp
             formCriarTarefa.ShowDialog();
 
             LoadTasks();
+        }
+
+        private void dgvTarefas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                var currentTime = TimeSpan.Parse(dgvTarefas.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                var estimatedTime = TimeSpan.Parse(dgvTarefas.Rows[e.RowIndex].Cells[3].Value.ToString());
+                if (currentTime >= estimatedTime)
+                    e.CellStyle.ForeColor = Color.Red;
+            }
+        }
+
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (dgvTarefas.SelectedRows.Count > 0)
+            {
+                var taskName = dgvTarefas.SelectedRows[0].Cells[1].Value;
+
+                dgvTarefas.SelectedRows[0].Cells[4].Value = "Stopped";
+
+                timer1.Enabled = false;
+
+                _taskService.UpdateCurrentTime(
+                    (int)dgvTarefas.SelectedRows[0].Cells[0].Value,
+                    lblCurrentTime.Text
+                );
+                LogService.Write("FormPrincipal::Form_Closing", $"Parando tarefa {taskName}, tempo decorrido: {lblCurrentTime.Text}");
+            }
         }
     }
 }
